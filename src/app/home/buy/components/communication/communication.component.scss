@@ -1,0 +1,124 @@
+ion-header {
+  &::after {
+    background-image: none;
+  }
+}
+ion-content {
+  --background: #f2f5fc;
+  --padding-bottom: 80px;
+  --padding: 0;
+  .item {
+    margin: 0 15px;
+    position: relative;
+    overflow: hidden;
+    p {
+      margin: 0;
+    }
+    ion-avatar {
+      width: 45px;
+      height: 45px;
+      position: absolute;
+      top: 35px;
+    }
+    .name {
+      font-size: 14px;
+      padding-top: 5px;
+      line-height: 35px;
+      color: #333;
+      span {
+        color: #989eac;
+      }
+    }
+    .content_box {
+      position: relative;
+      display: inline-block;
+      max-width: calc(100% - 50px);
+      font-size: 16px;
+      padding: 10px 12px;
+      line-height: 25px;
+      border-radius: 8px;
+      box-sizing: border-box;
+      ion-img {
+        width: 100%;
+        margin-bottom: 2px;
+      }
+      &::after {
+        content: "";
+        border: 8px solid;
+        position: absolute;
+        top: 10px;
+      }
+    }
+  }
+  .user {
+    padding-left: 60px;
+    padding-bottom: 10px;
+    ion-avatar {
+      left: 0;
+    }
+    .content_box {
+      display: inline-block;
+      margin-left: 0;
+      background-color: #fff;
+      color: #333;
+      &::after {
+        left: -16px;
+        border-color: transparent #fff transparent transparent;
+      }
+    }
+    .name {
+      float: left;
+      width: 100%;
+      span {
+        margin-left: 8px;
+      }
+    }
+  }
+  .self {
+    padding-right: 60px;
+    padding-bottom: 10px;
+    ion-avatar {
+      right: 0;
+    }
+    .content_box {
+      margin-left: 0;
+      margin-left: 50px;
+      background-color: #2bd596;
+      color: #fff;
+      float: right;
+      &::after {
+        right: -16px;
+        border-color: transparent transparent transparent #2bd596;
+      }
+    }
+    .name {
+      width: 100%;
+      text-align: right;
+      span {
+        margin-right: 8px;
+      }
+    }
+  }
+  ion-item.sendMsg {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    --min-height: 55px;
+    --background: #fff;
+    ion-button {
+      height: 100%;
+      --color: #333;
+      --background: transparent;
+      --color-activated: #888;
+      --background-activated: transparent;
+      font-size: 16px;
+    }
+  }
+}
+input.eleFile {
+  position: absolute;
+  visibility: hidden;
+  z-index: -5;
+}

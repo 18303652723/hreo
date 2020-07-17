@@ -1,0 +1,37 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/personalComponents/dynamic"></ion-back-button>
+    </ion-buttons>
+    <ion-title>消息详情</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="none" class="top ion-no-padding">
+    <ion-label>
+      <ion-text class="title">{{ data.title }}</ion-text>
+      <ion-text class="time" color="medium">{{ data.time }}</ion-text>
+    </ion-label>
+    <ion-button slot="end" class="ion-no-margin">
+      <ion-icon name="ellipsis-horizontal"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <ion-text class="txt" color="medium">{{ data.txt }}</ion-text>
+
+  <ion-button *ngIf="data.type === 2" 
+    [routerLink]="['/personalComponents/sellerListOfGoods']"
+    [queryParams]="{ title: 2 }">
+    点此查看该商品
+  </ion-button>
+  <ion-button *ngIf="data.type === 4"
+    [routerLink]="['/personalComponents/sellerListOfOrder']"
+    [queryParams]="{ title: 3 }">
+    点此查看该订单
+  </ion-button>
+  <ion-button *ngIf="data.type === 5"
+    [routerLink]="['/personalComponents/sellerListOfOrder']"
+    [queryParams]="{ title: 4 }">
+    点此查看该订单
+  </ion-button>
+</ion-content>

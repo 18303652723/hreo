@@ -1,0 +1,13 @@
+ion-content {
+    --background: #eee;
+    ion-item-group {
+      ion-item-divider {
+        color: #919191;
+        font-size: 13px;
+      }
+      ion-button {
+        --border-radius: 3px;
+        margin-top: 10px;
+      }
+    }
+  }

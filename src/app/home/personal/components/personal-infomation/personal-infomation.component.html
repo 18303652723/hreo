@@ -1,0 +1,69 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/personal"></ion-back-button>
+    </ion-buttons>
+    <ion-title>个人资料</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item-group>
+    <ion-item-divider mode="md">
+      <ion-label>个人信息</ion-label>
+    </ion-item-divider>
+  
+    <ion-item mode="ios" button (click)="imgInput.click()">
+      <ion-label>头像</ion-label>
+      <ion-avatar slot="end">
+        <ion-img [src]="personalInfomation.avatar"></ion-img>
+      </ion-avatar>
+    </ion-item>
+    <ion-item mode="ios" (click)="openEditFrame('昵称')" button>
+      <ion-label>昵称</ion-label>
+      <ion-text color="medium" slot="end" align="right">{{ personalInfomation.title }}</ion-text>
+    </ion-item>
+    <ion-item mode="ios" lines="none" (click)="openEditFrame('个性签名')" button>
+      <ion-label>个性签名</ion-label>
+      <ion-text color="medium" slot="end" align="right">{{ personalInfomation.explain }}</ion-text>
+    </ion-item>
+  </ion-item-group>
+
+  <ion-item mode="ios" button class="logout" lines="none" (click)="logout()">
+    <ion-label align="center">退出登录</ion-label>
+  </ion-item>
+  <input
+    type="file"
+    #imgInput
+    style="visibility: hidden; position: fixed;"
+    accept="image/jpeg, image/jpg, image/png"
+    (change)="uploadFile($event)" />
+</ion-content>
+
+
+<ion-row class="edit_animate" [ngClass]="{ show: showEditFrame }">
+  <ion-col size="12" class="ion-no-padding edit_header">
+    <ion-header>
+      <ion-toolbar mode="ios">
+        <ion-title>修改{{ editFrameTitle }}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+  </ion-col>
+  <ion-col size="12" class="ion-no-padding edit_body">
+    <ion-textarea
+      class="ion-no-margin ion-no-padding"
+      rows="4"
+      [(ngModel)]="textareaVal">
+    </ion-textarea>
+  </ion-col>
+  <ion-col class="ion-no-padding">
+    <ion-button
+      expand="block"
+      class="ion-no-margin"
+      mode="ios"
+      (click)="editInputConfirm()">
+      确定
+    </ion-button>
+  </ion-col>
+</ion-row>
+<div class="backdrop" [ngClass]="{ show: showEditFrame }" (click)="showEditFrame = false">

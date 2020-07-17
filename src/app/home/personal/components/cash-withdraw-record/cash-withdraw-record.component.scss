@@ -1,0 +1,16 @@
+ion-content {
+  --background: #f3f6f9;
+  ion-list {
+    background: transparent;
+    ion-item {
+      margin-top: 10px;
+      ion-label {
+        > ion-text {
+          display: block;
+          font-size: 16px;
+          line-height: 22px;
+        }
+      }
+    }
+  }
+}

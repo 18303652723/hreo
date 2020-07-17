@@ -1,0 +1,159 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/sell" text="返回"></ion-back-button>
+    </ion-buttons>
+    <ion-title>发布商品</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <input
+    class="hide_upload_input"
+    #fileInput
+    type="file"
+    multiple
+    accept="image/jpeg,image/jpg"
+    (change)="uploadImg($event)" />
+  <ion-item-group *ngFor="let item of formDataLayout, let i = index">
+    <!-- 发布商品图片 -->
+    <ion-item-divider mode="ios">
+      <ion-label color="medium">{{ i + 1 }}：{{ item.label }}</ion-label>
+    </ion-item-divider>
+    <div class="upload_pictrue" *ngIf="item.type === 'uploadPicture'" >
+      <div class="img_item" *ngFor="let img of selectedImgSrc">
+        <ion-img [src]="img.src"></ion-img>
+        <div class="progress" [style.display]="img.progress == 100 ? 'none' : 'block'" [style.width]="img.progress + '%'"></div>
+      </div>                
+      <ion-button
+        mode="ios"
+        class="ion-no-margin"
+        (click)="fileInput.click()">
+        <ion-icon name="image-outline"></ion-icon>
+      </ion-button>
+      <!-- <ion-text color="danger">*上传与图片无关的图片将无法通过审核</ion-text> -->
+      <ion-text color="danger">* 如您的帐号有密保手机，手机令牌或者安全锁，请解除以便账号能够顺利交易，否则可能无法通过审核；</ion-text>
+      <ion-text color="danger">* 截图中不能带有人物角色名、QQ号、联系方式、广告等违规信息(违规将被删除)，支持jpg、png格式；</ion-text>
+      <ion-text color="danger">* 上传装备、人物属性等图片建议800×800以上，单张图片需小于5M，买家购买时可大图查看，更利于出售。</ion-text>
+    </div>
+
+    <template *ngFor="let lines of item.items">
+      <ion-item lines="none" mode="ios" *ngIf="lines.type == '2' && lines.secret_bdma != '1'">
+        <ion-label [ngClass]="{'important': lines.required}">{{ lines.description }}</ion-label>
+        <ion-input align="right" (ionBlur)="scrollToTop()" type="text" [(ngModel)]="formData[lines.title]"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" mode="ios" *ngIf="lines.type == '1' && lines.secret_bdma != '1'">
+        <ion-label [ngClass]="{'important': lines.required}">{{ lines.description }}</ion-label>
+        <ion-input align="right" (ionBlur)="scrollToTop()" type="number" [(ngModel)]="formData[lines.title]"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" mode="ios" *ngIf="lines.type == '6' && lines.secret_bdma != '1'">
+        <ion-label [ngClass]="{'important': lines.required}">{{ lines.description }}</ion-label>
+        <ion-select interface="popover" [(ngModel)]="formData[lines.title]">
+          <ion-select-option
+            [value]="selectItem.label"
+            *ngFor="let selectItem of lines.is_default">
+            {{ selectItem.label }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="none" *ngIf="lines.type == '7' && lines.secret_bdma != '1'">
+        <ion-label class="important fullHeight">{{ lines.description }}</ion-label>
+        <ion-row>
+          <ion-col size="12" class="ion-no-padding tips">（可多选）</ion-col>
+          <ion-col size="4" class="ion-no-padding" *ngFor="let selectItem of lines.is_default">
+            <ion-text
+              [ngClass]="{ active: selectItem.selected }"
+              (click)="multipleStatusChange(selectItem, lines.title)">
+              {{ selectItem.label }}
+            </ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+
+      <ion-item lines="none" mode="ios" *ngIf="lines.type == '3' && lines.secret_bdma != '1'">
+        <ion-label [ngClass]="{'important': lines.required}">{{ lines.description }}</ion-label>
+        <ion-textarea placeholder="请输入..." [(ngModel)]="formData[lines.title]"></ion-textarea>
+      </ion-item>
+
+
+      <ion-item
+        button
+        lines="none"
+        *ngIf="lines.type == '10' && lines.secret_bdma != '1'"
+        (click)="modalPresent(lines)">
+        <ion-label class="important">{{ lines.description }}</ion-label>
+        <ion-text>{{ formData[lines.title] && formData[lines.title].title }}</ion-text>
+      </ion-item> 
+    </template>
+  </ion-item-group>
+  
+  <ion-item-divider mode="ios">
+    <ion-label color="medium">3：保险套餐</ion-label>
+  </ion-item-divider>
+
+  <template>
+    <ion-item lines="none" mode="ios">
+      <ion-label class="important">保险</ion-label>
+      <ion-select interface="popover" [(ngModel)]="formData.insurance">
+        <ion-select-option value="60天保险">60天保险</ion-select-option>
+        <ion-select-option value="90天保险">90天保险</ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+    <!-- <ion-item lines="none" mode="ios">
+      <ion-label>服务保障</ion-label>
+      <ion-row>
+        <ion-col size="12" class="ion-no-padding tips">（可多选）</ion-col>
+        <ion-col size="4" class="ion-no-padding" *ngFor="let item of serviceGuarantee">
+          <ion-text
+            [ngClass]="{ active: item.selected }"
+            (click)="multipleStatusChange(item, lines.title)">
+            {{ item.label }}
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    
+    <ion-item lines="none" mode="ios">
+      <ion-label>商品拍卖</ion-label>
+      <ion-select interface="popover" [(ngModel)]="formData.auction">
+        <ion-select-option value="支持拍卖">支持拍卖</ion-select-option>
+        <ion-select-option value="不支持拍卖">不支持拍卖</ion-select-option>
+      </ion-select>
+    </ion-item> -->
+
+    <ion-text class="radio">
+      <ion-checkbox mode="ios" [(ngModel)]="formData.agreedTerm"></ion-checkbox>
+      <ion-text color="medium">我已认真阅读并同意<ion-text color="primary" (click)="checkDealSecurity()">《交易安全险》</ion-text></ion-text>
+    </ion-text>
+  </template>
+
+  <template>
+    <ion-textarea rows="4" placeholder="请详细描述一下这件商品" [(ngModel)]="formData.description"></ion-textarea>
+  </template>
+
+  <div class="statement">
+    <ion-text color="medium" class="title">防诈骗提醒：</ion-text>
+    <ion-text color="medium">亲爱的卖家，您发布商品后，wow自由交易平台不让以任何理由让您进行汇款等操作，如您选择的是“卖家发货”，一定需要您亲自提取买家信息进行发货，任何私下电话(含400电话)或QQ让您发货到指定账号或角色的，均为诈骗。</ion-text>
+  </div>
+
+  <div class="statement">
+    <ion-text color="medium" class="title">卖家温馨提示：</ion-text>
+    <ion-text color="medium">1、商品被拍后，您务必严格按照订单信息进行发货，如有异常，请您务必与客服核实；<ion-text color="primary" *ngIf="!prompt" (click)="prompt = !prompt">(查看更多)</ion-text></ion-text>
+    <ion-text color="medium" *ngIf="prompt">2、订单页面不可留个人联系方式，一旦系统检测出会对买家卖家进行首次警告，再次发现进行封号处理；</ion-text>
+    <ion-text color="medium" *ngIf="prompt">3、为保障您的商品的成交速率，请完整填写商品信息 魔兽正式服截图标准：月卡、区服、等级职业、面板属性、紫装蓝装、转区资格、仓库背包、天赋技能、战网进度查询表单、战网实名结果；</ion-text>
+    <ion-text color="medium" *ngIf="prompt">4、为保障您的商品的成交速率，请完整填写商品信息；</ion-text>
+    <ion-text color="medium" *ngIf="prompt">5、商品被拍后，您必须严格按照订单信息进行发货，如有异常，请您务必核实；</ion-text>
+    <ion-text color="medium" *ngIf="prompt">6、私下交易有风险，涉及钱财莫大意，谨防诈骗；</ion-text>
+    <ion-text color="medium" *ngIf="prompt">7、手游三方充值，如果充值后出现被官方扣除情况，扣除的损失是由卖家来承担；</ion-text>
+    <ion-text color="medium" *ngIf="prompt">8、如您出售的是账号商品，交易过程中存在一定的换绑周期；</ion-text>
+    <ion-text color="medium" *ngIf="prompt">9、为了保障订单正常交易，请您至少保留发货凭证7天。</ion-text>
+    <ion-text color="primary" *ngIf="prompt" (click)="prompt = !prompt">(点击收起)</ion-text>
+  </div>
+
+  <ion-button class="next" *ngIf="moreInfo" [disabled]="!formData.agreedTerm" (click)="next()">下一步</ion-button>
+  <ion-button class="next" *ngIf="!moreInfo" [disabled]="!formData.agreedTerm" (click)="submit()">提交</ion-button>
+</ion-content>

@@ -1,0 +1,68 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/personalComponents/messageList"></ion-back-button>
+    </ion-buttons>
+    <ion-title>交易动态</ion-title>
+  </ion-toolbar>
+  <ion-segment mode="md" color="dark" [(ngModel)]="dataType">
+    <ion-segment-button value="站内信" mode="md">站内信</ion-segment-button>
+    <ion-segment-button value="公告" mode="md">公告</ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content>
+  <!-- 头部加载 -->
+  <ion-refresher 
+    slot="fixed"
+    pullMin="70" 
+    (ionRefresh)="pageRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-down"
+      pullingText="下拉刷新"
+      refreshingText="刷新中...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-row class="dynamicMessage" *ngIf="dataType === '站内信'">
+    <ion-col size="12" class="no_data" *ngIf="dynamicMessageList.length === 0">
+      <ion-text color="medium">当前没有数据</ion-text>
+    </ion-col>
+    <ion-col class="ion-no-padding" size="12" *ngIf="dynamicMessageList.length !== 0">
+      <ion-button class="ion-no-margin ion-no-padding">
+        <ion-icon name="trash-outline"></ion-icon>清除已读
+      </ion-button>
+    </ion-col>
+    <ion-col
+      class="ion-no-padding"
+      size="12"
+      *ngFor="let item of dynamicMessageList"
+      [routerLink]="['/personalComponents/dynamicDetail']"
+      [queryParams]="{ id: item.id }">
+      <ion-text class="title">{{ item.title }}<ion-text color="medium">{{ item.time }}</ion-text></ion-text>
+      <ion-text color="medium" class="msg">{{ item.msg }}</ion-text>
+    </ion-col>
+  </ion-row>
+  <ion-list class="ion-no-padding" *ngIf="dataType === '公告'">
+    <ion-item
+      lines="full"
+      button
+      *ngFor="let item of noticeList"
+      [routerLink]="['/personalComponents/noticeDetail']"
+      [queryParams]="{ id: item.id }">
+      <ion-label>
+        <ion-text color="dark" class="title">{{ item.title }}
+          <ion-text class="time" color="medium">{{ item.time }}</ion-text>
+        </ion-text>
+        <ion-text color="medium" class="discription">{{ item.discription }}</ion-text>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <ion-infinite-scroll #infiniteScroll (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content 
+      loadingSpinner="bubbles"
+      loadingText="正在加载更多数据...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

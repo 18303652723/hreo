@@ -1,0 +1,33 @@
+<ion-content>
+  <ion-slides pager="true" [options]="slidesConfig">
+    <!-- 一级分类 -->
+    <ion-slide *ngFor="let child of goodsSellType">
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label color="medium">目前【魔兽世界经典怀旧服】支持出售的商品类别如下：</ion-label>
+        </ion-item-divider>
+
+        <template *ngFor="let item of child, let i = index">
+          <ion-item
+            lines="none"
+            mode="ios"
+            button
+            *ngIf="item.link || !item.children || item.children.length === 0"
+            class="nochild"
+            (click)="goToLink(item,item.title)">
+            <ion-label>{{ item.title }}</ion-label>
+          </ion-item>
+          <ion-item
+            lines="none"
+            mode="ios"
+            button
+            *ngIf="!item.link && item.children && item.children.length > 0"
+            [ngClass]="{ nochild: !item.children || item.children.length === 0 }"
+            (click)="typeChange(i)">
+            <ion-label>{{ item.title }}</ion-label>
+          </ion-item>
+        </template>
+      </ion-item-group>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

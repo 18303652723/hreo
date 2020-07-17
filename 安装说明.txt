@@ -1,0 +1,6 @@
+1、安装nodejs npm
+2、进入根目录，执行命令，npm -i等待所有依赖安装完毕
+3、ionic serve启动
+4、src\environments修改域名
+5、src\app\services\services.module.ts修改域名
+6、整个文件夹搜索，uploadPicture，替换成自己的图片上传接口

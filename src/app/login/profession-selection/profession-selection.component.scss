@@ -1,0 +1,41 @@
+ion-content {
+  --background: #000 url(../../../assets/images/login/professtion.jpg) no-repeat top center / contain;
+  ion-row {
+    position: fixed;
+    bottom: 20px;
+    ion-col {
+      text-align: center;
+      &.label {
+        text-align: center;
+        color: #fff;
+        font-weight: 700;
+        padding: 15px 0;
+      }
+      &.option {
+        padding: 45px 0;
+        ion-img {
+          height: 100%;
+          position: absolute;
+          top: 0;
+          right: 0;
+          transform: translateX(50%);
+          
+        }
+        ion-button {
+          &.red {
+            --background: #711403;
+            --background-activated: #eb2f12;
+            border: 2px solid #eb2f12;
+          }
+          &.blue {
+            --background: #0b2b52;
+            --background-activated: #056bfe;
+            border: 2px solid #056bfe;
+          }
+          --border-radius: 0;
+          width: 130px;
+        }
+      }
+    }
+  }
+}

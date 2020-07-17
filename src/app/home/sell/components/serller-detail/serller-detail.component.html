@@ -1,0 +1,54 @@
+<ion-header moode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/buy" text="返回"></ion-back-button>
+    </ion-buttons>
+    <ion-title>个人卖家</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="top">
+    <ion-item lines="none">
+      <ion-thumbnail>
+        <ion-img [src]="sell_user_info.user_pic"></ion-img>
+      </ion-thumbnail>
+      <ion-text class="info">
+        <ion-text class="title">{{ sell_user_info.sell_user_name }}
+          <ion-text class="real_name"><ion-icon name="checkmark-circle"></ion-icon>实名</ion-text>
+        </ion-text>
+        <ion-text>信用：新卖家</ion-text>
+        <ion-text>近七天成交率：{{ sell_user_info.sell_isdeal_goods_count }}</ion-text>
+      </ion-text>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label class="ion-no-margin">认证信誉
+        <i class="iconfont icon-renzhengxinxi"></i>
+        <ion-text color="medium">已实人</ion-text>
+      </ion-label>
+      <ion-label (click)="collectBtn()">
+        <ion-icon name="star-outline" *ngIf="!collect_status"></ion-icon>
+        <ion-icon name="star" *ngIf="collect_status" class="active"></ion-icon>
+        &nbsp;{{ collect_status ? '已收藏' : '加入收藏' }}
+      </ion-label>
+    </ion-item>
+  </div>
+  <div style="height: 10px; background-color: #f2f2f2;"></div>
+  <ion-list>
+    <ion-item button *ngFor="let item of sell_goods_info" [routerLink]="['/buyComponents/goodsDetail']" [queryParams]="{ id: item.id }">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="item.picurl"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+        <ion-text class="title">
+          <ion-text class="type">账</ion-text>
+          <ion-text class="title">{{ item.goods_name }}</ion-text>
+        </ion-text>
+        <ion-text class="tags">
+          <ion-text color="medium" *ngFor="let tag of item.tags">{{ tag.title }}</ion-text>
+        </ion-text>
+        <ion-text color="danger" class="price">{{ item.goods_price }}</ion-text>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

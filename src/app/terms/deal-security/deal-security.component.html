@@ -1,0 +1,20 @@
+<!-- <div>1321564</div>
+<div>1321564</div>
+<div>1321564</div>
+<div>1321564</div>
+
+<div>xxxxxxxxxx</div>
+<ion-button class="next" (click)="dismiss()">我已阅读</ion-button> -->
+<ion-header translucent>
+    <ion-toolbar>
+      <ion-title>《{{HeaderTitle}}》</ion-title>
+      <ion-buttons slot="start">
+        <ion-button (click)="dismiss()">返回</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content fullscreen>
+    <ion-list>
+        <p>{{List.content}}</p>
+    </ion-list>
+  </ion-content>

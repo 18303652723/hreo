@@ -1,0 +1,116 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button text="返回"></ion-back-button>
+    </ion-buttons>
+    <ion-title>购买确认</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row class="goods_info">
+    <ion-col size="8" class="ion-no-padding info">
+      <ion-text class="title" color="dark">
+        <ion-text>礼</ion-text>{{ data.title }}
+      </ion-text>
+      <ion-text class="tags" color="medium">
+        <ion-text *ngFor="let item of data.tags">{{ item }}</ion-text>
+      </ion-text>
+      <ion-text class="price" color="medium">{{ data.price }}</ion-text>
+    </ion-col>
+    <ion-col size="4" class="ion-no-padding img">
+      <ion-img [src]="data.pic_url">
+      </ion-img>
+    </ion-col>
+    <ion-col size="12" class="ion-no-padding" class="purchase_count" *ngIf="data.attr_cate != '代练'">
+      <ion-text color="dark" class="fr">{{ data.count }}件</ion-text>
+      <ion-text color="dark">购买数</ion-text>
+    </ion-col>
+    
+    <ion-col size="12" class="ion-no-padding" class="purchase_count" *ngIf="data.attr_cate == '代练'">
+      <ion-text color="dark" class="fr">
+        <ion-icon name="remove-circle-outline" (click)="amountOpt('drop')"></ion-icon>
+        <ion-text class="amount" (click)="amountOpt('input')">{{ data.count }}</ion-text>
+        <ion-icon name="add-circle-outline" (click)="amountOpt('add')"></ion-icon>
+      </ion-text>
+      <ion-text color="dark">购买数</ion-text>
+    </ion-col>
+  </ion-row>
+
+  <ion-item-group>
+    <ion-item-divider>
+      <ion-label>收货信息</ion-label>
+    </ion-item-divider>
+    <ion-item lines="full">
+      <ion-label>手机号码<ion-text>*</ion-text>
+      </ion-label>
+      <ion-input align="right" color="medium" type="number" [(ngModel)]="receiveInfo.mobile"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label>联系QQ<ion-text>*</ion-text>
+      </ion-label>
+      <ion-input align="right" color="medium" type="number" [(ngModel)]="receiveInfo.QQ"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label>选择客服<ion-text>*</ion-text>
+      </ion-label>
+      <ion-select interface="popover" [(ngModel)]="receiveInfo.customerService" color="medium">
+        <ion-select-option  *ngFor="let g of customerServiceList" [value]="g.value">{{ g.label }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label>我已认真阅读并同意</ion-label>
+    </ion-item-divider>
+    <ion-item lines="full">
+      <ion-text color="primary" (click)="checkDealSecurity()">《买家购买协议》</ion-text>
+    </ion-item>
+  </ion-item-group>
+
+</ion-content>
+<ion-row class="detail_animate" [ngClass]="{ show: showDetailFrame,bottom1: !data.ws_deposit,bottom2: data.ws_deposit }">
+  <ion-col size="12" class="ion-no-padding detail_header">
+    <ion-header>
+      <ion-toolbar mode="ios">
+        <ion-title>订单金额明细</ion-title>
+      </ion-toolbar>
+    </ion-header>
+  </ion-col>
+  <ion-col size="12" class="ion-no-padding detail_body">
+    <div class="line">
+      <ion-text color="medium">商品单价</ion-text>
+      <ion-text color="medium" class="ar">￥{{ data.goods_price }}</ion-text>
+    </div>
+    <div class="line" *ngIf="data.attr_cate == '租号'">
+      <ion-text color="medium">押金</ion-text>
+      <ion-text color="medium" class="ar">￥{{ data.ws_deposit }}</ion-text>
+    </div>
+    <div class="line">
+      <ion-text color="medium">购买数量</ion-text>
+      <ion-text color="medium" class="ar">{{ data.count }}</ion-text>
+    </div>
+    <div class="line">
+      <ion-text>实付款</ion-text>
+      <ion-text class="ar">￥{{ data.attr_cate != '代练' ? data.price : data.goods_price * data.count }}</ion-text>
+    </div>
+  </ion-col>
+</ion-row>
+<div class="backdrop" [ngClass]="{ show: showDetailFrame }" (click)="showDetailFrame = false">
+</div>
+<ion-footer>
+  <ion-row>
+    <ion-col size="6" class="ion-no-padding">
+      <ion-text class="price">{{ data.attr_cate != '代练' ? data.price : data.goods_price * data.count }}</ion-text>
+      <ion-text class="detail" color="medium" (click)="showDetailFrame = !showDetailFrame">
+        明细<ion-icon name="chevron-up-outline" [ngClass]="{ active: showDetailFrame }"></ion-icon>
+      </ion-text>
+    </ion-col>
+    <ion-col size="6" class="ion-no-padding">
+      <ion-button
+        [disabled]="disableBtn"
+        class="ion-no-margin"
+        (click)="purchaseConfirm()">
+        确认购买
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

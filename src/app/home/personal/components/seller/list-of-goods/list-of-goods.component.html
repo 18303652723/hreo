@@ -1,0 +1,59 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/personal"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-text *ngIf="title == '0'">待提交商品</ion-text>
+      <ion-text *ngIf="title == '1'">审核中商品</ion-text>
+      <ion-text *ngIf="title == '2'">已上架商品</ion-text>
+      <ion-text *ngIf="title == '3'">已下架商品</ion-text>
+      <ion-text *ngIf="title == '4'">已售完商品</ion-text>
+      <ion-text *ngIf="title == '5'">已发货、待确认订单</ion-text>
+      <ion-text *ngIf="title == '6'">交易成功订单</ion-text>
+      <ion-text *ngIf="title == '7'">交易失败订单</ion-text>
+      <ion-text *ngIf="title == '8'">交易中订单</ion-text>
+      <ion-text *ngIf="title == '9'">待发货</ion-text>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="item" *ngFor="let item of data">
+    <div class="goods_info">
+      <div class="ion-no-padding info">
+        <ion-text class="title" color="dark">
+          <ion-img src="{{item.picUrl}}"></ion-img>
+          {{ item.title }}
+        </ion-text>
+        <ion-text class="tags" color="medium">
+          <ion-text *ngFor="let tag of item.tags">{{ tag }}</ion-text>
+        </ion-text>
+        <ion-text class="price" color="medium">{{ item.goods_price }}</ion-text>
+      </div>
+      <div class="ion-no-padding img">
+        <ion-img [src]="item.picUrl">
+        </ion-img>
+      </div>
+    </div>
+
+    <!-- 不同状态的按钮 -->
+    <div class="handler" *ngIf="title === '0'">
+      <ion-button class="ion-no-margin" (click)="remove(item.id)">删除</ion-button>
+      <ion-button class="ion-no-margin primary" (click)="submitAudit(item.id)">提交</ion-button>
+    </div>
+    <div class="handler" *ngIf="title === '2'">
+      <ion-button class="ion-no-margin" (click)="modifyPrice(item.id)">修改价格</ion-button>
+      <ion-button class="ion-no-margin" (click)="shelves(item.id, true)">下架</ion-button>
+    </div>
+    <div class="handler" *ngIf="title === '3'">
+      <!-- <ion-button class="ion-no-margin" (click)="modifyPrice(item.id)">修改价格</ion-button>
+      <ion-button class="ion-no-margin" (click)="shelves(item.id, false)">上架</ion-button> -->
+    </div>
+  </div>
+
+  <div class="noData" *ngIf="data.length === 0">
+    <ion-img src="assets/images/noData.png"></ion-img>
+    <ion-text>没有数据</ion-text>
+  </div>
+</ion-content>

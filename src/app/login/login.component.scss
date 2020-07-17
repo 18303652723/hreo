@@ -1,0 +1,44 @@
+ion-content {
+  --background: url('../../assets/images/login/login.jpg') no-repeat top center / cover;
+  ion-row {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    ion-col.type_item {
+      height: 58px;
+      background: linear-gradient(to right, #f8f4f5, #393e44);
+      margin-bottom: 20px;
+      padding: 0;
+      div {
+        width: calc(100% - 8px);
+        margin: 4px;
+        background: #000;
+        text-align: center;
+        line-height: 50px;
+        letter-spacing: 4px;
+        color: #d1d1d1;
+        font-size: 16px;
+        &:active {
+          color: #888;
+        }
+      }
+    }
+    ion-col {
+      height: 16px;
+      text-align: center;
+      padding-bottom: 130px;
+      ion-button {
+        --background: transparent;
+        --background-activated: transparent;
+        --color: #d1d1d1;
+        --color-activated: #888;
+        font-size: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        --border-radius: 0;
+        margin: 0 auto;
+      }
+    }
+  }
+}

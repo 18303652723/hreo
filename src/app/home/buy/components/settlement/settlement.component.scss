@@ -1,0 +1,30 @@
+ion-content {
+  --background: #f7f7f7;
+  ion-text.goods_name {
+    display: block;
+    font-weight: 700;
+    font-size: 16px;
+    color: #333;
+    line-height: 28px;
+    padding-top: 20px;
+  }
+  ion-text.goods_price {
+    display: block;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 40px;
+    &::before {
+      content: "￥";
+      font-size: 20px;
+    }
+  }
+  ion-list {
+    margin-top: 20px;
+  }
+  ion-button.settlement {
+    margin: 25px 15px;
+    --background: linear-gradient(to right, #5bc7f9, #3d8af7);
+    --background-activated: linear-gradient(to right, #4cbef3, #207af8);
+    --border-radius: 5px;
+  }
+}

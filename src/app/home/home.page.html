@@ -1,0 +1,30 @@
+
+<ion-router-outlet></ion-router-outlet>
+<ion-tabs>
+  <ion-tab-bar slot="bottom" color="custom-tabs">
+    <ion-tab-button tab="index">
+      <ion-icon src="assets/fonts/home.svg"></ion-icon>
+      <ion-label>首页</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="buy">
+      <ion-icon src="assets/fonts/buy.svg"></ion-icon>
+      <ion-label>我要买</ion-label>
+    </ion-tab-button>
+    
+    <ion-tab-button tab="forum">
+      <ion-icon src="assets/fonts/forum.svg"></ion-icon>
+      <ion-label>论坛</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="sell">
+      <ion-icon src="assets/fonts/rent.svg"></ion-icon>
+      <ion-label>我要卖</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="personal">
+      <ion-icon src="assets/fonts/personal.svg"  [ngClass]="{ msgBtn: newMsg }"></ion-icon>
+      <ion-label>个人中心</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

@@ -1,0 +1,12 @@
+ion-content {
+  .no_data {
+    width: 180px;
+    margin: 100px auto 0;
+    ion-text {
+      display: block;
+      color: #333;
+      text-align: center;
+      padding-top: 20px;
+    }
+  }
+}

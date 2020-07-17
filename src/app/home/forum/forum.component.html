@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-item lines="none" class="ion-no-padding">
+    <div class="searchBar">
+      <ion-input mode="ios" [(ngModel)]="searchKey"></ion-input>
+      <ion-button mode="ios" slot="end" class="ion-no-margin ion-no-padding" (click)="searchBtn()">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+    </div>
+    <ion-button mode="ios" slot="end" class="ion-no-margin" [routerLink]="['/forumComponents/message']">
+      <ion-icon name="notifications-outline" [ngClass]="{ new: notice_label }"></ion-icon>
+    </ion-button>
+    <ion-button mode="ios" slot="end" class="ion-no-margin" [routerLink]="['/forumComponents/add']">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <ion-row>
+    <ion-col
+      size="2"
+      offset="2"
+      align="center"
+      class="ion-no-padding"
+      [ngClass]="{active: currentTab === 0}"
+      (click)="currentTabBtn(0)">
+      综合
+    </ion-col>
+    <ion-col
+      size="2"
+      align="center"
+      class="ion-no-padding"
+      *ngFor="let item of classifyList"
+      [ngClass]="{active: currentTab === item.id}"
+      (click)="currentTabBtn(item.id)">
+      {{ item.title }}
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content>
+  <ion-slides pager="true" [options]="slidesConfig" [ngClass]="{ active: slidesConfig.show }">
+    <ion-slide *ngFor="let item of goodsImg" (click)="slidesConfig.show = false">
+      <ion-img [src]="item"></ion-img>
+    </ion-slide>
+  </ion-slides>
+
+  <ion-row>
+    <ion-col class="ion-no-padding item" size="12" *ngFor="let item of forum_data">
+      <ion-item lines="none" mode="ios" [routerLink]="['/forumComponents/detail']" [queryParams]="{ id: item.id }">
+        <ion-avatar slot="start">
+          <img [src]="item.user_url">
+        </ion-avatar>
+        <ion-label>
+          <ion-text class="title">{{ item.user_name }}</ion-text>
+          <ion-text class="ago">{{ item.time_trans }}</ion-text>
+        </ion-label>
+      </ion-item>
+      <ion-text color="dark" class="context" [routerLink]="['/forumComponents/detail']" [queryParams]="{ id: item.id }">{{ item.content }}</ion-text>
+      <ion-row class="images">
+        <ion-col size="4" *ngFor="let img of item.forum_urls">
+          <ion-img [src]="img" (click)="slideshowbtn(item.forum_urls)"></ion-img>
+        </ion-col>
+      </ion-row>
+      <div class="handlers">
+        <ion-button mode="ios" class="ion-no-margin" [routerLink]="['/forumComponents/detail']" [queryParams]="{ id: item.id }">
+          <i class="iconfont icon-pinglun"></i>
+          {{ item.comment_count }}
+        </ion-button>
+        <ion-button mode="ios" class="ion-no-margin" (click)="thumb_up_opt(item.id)">
+          <i class="iconfont icon-dianzan active"></i>
+          {{ item.thumb_up_count }}
+        </ion-button>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-content>

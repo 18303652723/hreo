@@ -1,0 +1,24 @@
+ion-content {
+  --padding-top: 20px;
+  ion-item {
+    border-bottom: 1px solid #e3e3e3;
+    ion-text {
+      position: absolute;
+      right: 10px;
+      bottom: 0;
+      z-index: 1000;
+    }
+  }
+  ion-button.login {
+    --border-radius: 40px;
+    margin: 35px 15px 0;
+    --background: linear-gradient(to right, #59c3f9, #3d89f5);
+    --background-activated: linear-gradient(to right, #49b2e7, #307de9);
+    height: 50px;
+  }
+  > ion-text {
+    display: block;
+    font-size: 15px;
+    line-height: 40px;
+  }
+}

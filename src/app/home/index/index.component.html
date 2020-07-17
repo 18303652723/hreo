@@ -1,0 +1,44 @@
+<ion-content>
+  <ion-img class="header" src="assets/images/index/header.jpg"></ion-img>
+  <div class="navigate_bar">
+    <div class="line">
+      <div class="item" *ngFor="let item of cateList" [routerLink]="['/indexComponents/buy']"
+        [queryParams]="{ id:item.id,title:item.title }">
+        <ion-img [src]="item.intention_pic"></ion-img>
+        <ion-text>{{item.title}}</ion-text>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <ion-slides class="banner" [options]="bannerOptions" pager>
+    <ion-slide *ngFor="let banner of bannerList" [routerLink]="['/buyComponents/goodsDetail']"
+      [queryParams]="{ id: banner.goods_id }">
+      <img src="{{ banner.img }}" />
+    </ion-slide>
+  </ion-slides>
+  <ion-row>
+    <ion-col size="6" *ngFor="let goods of recommendGoods" [routerLink]="['/buyComponents/goodsDetail']"
+      [queryParams]="{ id: goods.goods_id }">
+      <ion-img src="{{ goods.img }}"></ion-img>
+    </ion-col>
+    <!-- <ion-col size="6">
+      <ion-img src="assets/images/index/grid_1.png"></ion-img>
+    </ion-col>
+    <ion-col size="6">
+      <ion-img src="assets/images/index/grid_2.png"></ion-img>
+    </ion-col>
+    <ion-col size="6">
+      <ion-img src="assets/images/index/grid_3.png"></ion-img>
+    </ion-col>
+    <ion-col size="6">
+      <ion-img src="assets/images/index/grid_4.png"></ion-img>
+    </ion-col>
+    <ion-col size="6">
+      <ion-img src="assets/images/index/grid_2.png"></ion-img>
+    </ion-col> -->
+  </ion-row>
+
+  <ion-button class="public_msg ion-no-padding ion-no-margin" [routerLink]="['/personalComponents/Agreement']" [queryParams]="{ type: '公告' }">
+    <ion-label>官<br>方<br>公<br>告</ion-label>
+  </ion-button>
+</ion-content>

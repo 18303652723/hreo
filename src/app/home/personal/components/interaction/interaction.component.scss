@@ -1,0 +1,21 @@
+ion-content {
+  --background: #fefefe;
+  ion-list {
+    ion-item {
+      --detail-icon-font-size: 0;
+      ion-avatar {
+        width: 50px;
+        height: 50px;
+      }
+      ion-label {
+        .nickname {
+          padding-bottom: 5px;
+          display: block;
+        }
+        .type {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}

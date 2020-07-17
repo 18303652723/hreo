@@ -1,0 +1,9 @@
+ion-header ion-searchbar {
+  background-color: #fff;
+}
+ion-content {
+  --background: #e9eaef;
+  ion-item {
+    --detail-icon-font-size: 0;
+  }
+}

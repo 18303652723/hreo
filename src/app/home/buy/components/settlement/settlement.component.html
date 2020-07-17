@@ -1,0 +1,25 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="" text="返回"></ion-back-button>
+    </ion-buttons>
+    <ion-title>结算</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-text class="goods_name" align="center">{{ data.title }}</ion-text>
+  <ion-text class="goods_price" align="center">{{ data.price }}</ion-text>
+  <ion-list class="ion-no-padding" mode="ios">
+    <ion-item lines="full" mode="ios">
+      <ion-label color="medium">商品名称</ion-label>
+      <ion-text color="dark">{{ data.title }}</ion-text>
+    </ion-item>
+    <ion-item lines="full" mode="ios">
+      <ion-label color="medium">订单编号</ion-label>
+      <ion-text color="dark">{{ data.orderSn }}</ion-text>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" mode="ios" class="settlement" (click)="settlement()">结算</ion-button>
+</ion-content> 

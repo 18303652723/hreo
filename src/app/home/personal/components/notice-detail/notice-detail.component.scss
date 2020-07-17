@@ -1,0 +1,22 @@
+ion-content {
+  --background: #f3f5f9;
+  div.top {
+    background: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    ion-text.title {
+      display: block;
+      font-size: 22px;
+      line-height: 30px;
+    }
+    ion-text.time {
+      padding-top: 10px;
+      display: block;
+      font-size: 16px;
+    }
+  }
+  div.main {
+    padding: 15px;
+    background: #fff;
+  }
+}

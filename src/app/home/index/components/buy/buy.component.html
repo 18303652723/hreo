@@ -1,0 +1,214 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/index" text="返回"></ion-back-button>
+    </ion-buttons>
+    <ion-title>猜你想要</ion-title>
+  </ion-toolbar>
+  <ion-item class="ion-no-padding" lines="none">
+    <ion-searchbar placeholder="请输入关键字" mode="ios" [(ngModel)]="search_title"></ion-searchbar>
+    <ion-button class="ion-no-padding ion-no-margin" slot="end" (click)="unsold_goods_list()">搜索</ion-button>
+  </ion-item>
+  <div class="filter">
+    <ion-button class="flex2 ion-no-padding ion-no-margin" [ngClass]="{ active: slideShow.region }"
+      (click)="QuerySlideStatusChange('region')">
+      {{ area_title }}
+      <ion-icon name="caret-down-outline"></ion-icon>
+    </ion-button>
+    <ion-button class="flex2 ion-no-padding ion-no-margin" [ngClass]="{ active: slideShow.game }"
+      (click)="QuerySlideStatusChange('game')">
+      {{ title_all.game.title2 ? title_all.game.title2 : title_all.game.title1 }}
+      <ion-icon name="caret-down-outline"></ion-icon>
+    </ion-button>
+    <ion-button class="flex2 ion-no-padding ion-no-margin" [ngClass]="{ active: slideShow.type }"
+      (click)="QuerySlideStatusChange('type')">
+      {{ title_all.type.title2 ? title_all.type.title2 : title_all.type.title1 }}
+      <ion-icon name="caret-down-outline"></ion-icon>
+    </ion-button>
+    <!-- <ion-button class="flex2 ion-no-padding ion-no-margin" [ngClass]="{ active: slideShow.server }"
+      (click)="QuerySlideStatusChange('server')" *ngIf="title_all.f_cate_id">
+      {{ title_all.server.title2 != '服务器' ? title_all.server.title2 : title_all.server.title1 }}
+      <ion-icon name="caret-down-outline"></ion-icon>
+    </ion-button> -->
+    <ion-button class="flex2 ion-no-padding ion-no-margin" [ngClass]="{ active: slideShow.filter }"
+      (click)="QuerySlideStatusChange('filter')">
+      筛选
+      <ion-icon name="caret-down-outline"></ion-icon>
+    </ion-button>
+    <ion-button class="flex1 ion-no-padding ion-no-margin" (click)="QuerySlideStatusChange('sort')">
+      <i class="iconfont icon-Group-"></i>
+    </ion-button>
+  </div>
+
+
+
+  <ion-row class="animate_slide">
+    <ion-col size="12" class="ion-no-padding" style="display: block;" [ngClass]="{ h90px: slideShow.region }">
+      <ion-radio-group [value]="region_filter" (ionChange)="regionServerChange($event)">
+        <ion-item *ngFor="let item of areaList,let i = index" (click)="filterSelectionChange(i, 'region')">
+          <ion-label>{{ item.title }}</ion-label>
+          <ion-radio slot="start" [value]="item.id" slot="end"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-col>
+    <ion-col size="12" class="ion-no-padding" [ngClass]="{ h280px: slideShow.game }">
+      <div size="3" class="classify_list">
+        <ion-text color="dark" *ngFor="let item of queryData.game.data, let i = index"
+          [ngClass]="{active: i === queryData.game.parent}" (click)="filterSelectionChange(i, 'game')">
+          {{ item.title }}
+        </ion-text>
+      </div>
+      <div size="9" class="items_list">
+        <ion-text color="dark" [ngClass]="{ active: item.selected }"
+          *ngFor="let item of queryData.game.data[queryData.game.parent].list, let i = index"
+          (click)="filterChildSelectionChange(i, 'game')">
+          {{ item.title }}
+        </ion-text>
+      </div>
+    </ion-col>
+    <ion-col size="12" class="ion-no-padding" [ngClass]="{ h280px: slideShow.type }">
+      <div size="3" class="classify_list">
+        <ion-text color="dark" *ngFor="let item of queryData.type.data, let i = index"
+          [ngClass]="{active: i === queryData.type.parent}" (click)="filterSelectionChange(i, 'type')">
+          {{ item.title }}
+        </ion-text>
+      </div>
+      <div size="9" class="items_list">
+        <ion-text color="dark" [ngClass]="{ active: item.selected }"
+          *ngFor="let item of queryData.type.data[queryData.type.parent].list, let i = index"
+          (click)="filterChildSelectionChange(i, 'type')">
+          {{ item.title }}
+        </ion-text>
+      </div>
+    </ion-col>
+    <!-- <ion-col size="12" class="ion-no-padding" [ngClass]="{ h280px: slideShow.server }">
+      <div size="3" class="classify_list">
+        <ion-text color="dark" *ngFor="let item of queryData.server.data, let i = index"
+          [ngClass]="{active: i === queryData.server.parent}" (click)="filterSelectionChange(i, 'server')">
+          {{ item.title }}
+        </ion-text>
+      </div>
+      <div size="9" class="items_list">
+        <ion-text color="dark" [ngClass]="{ active: item.selected }"
+          *ngFor="let item of queryData.server.data[queryData.server.parent].list, let i = index"
+          (click)="filterChildSelectionChange(i, 'server')">
+          {{ item.title }}
+        </ion-text>
+      </div>
+    </ion-col> -->
+    <ion-col size="12" class="ion-no-padding" style="display: block;" [ngClass]="{ h220px: slideShow.filter }">
+      <ion-item lines="none" class="ion-no-padding">
+        <ion-label>价格范围</ion-label>
+        <ion-input color="dark" placeholder="最低价" type="number" [(ngModel)]="queryData.filter.lowest">
+        </ion-input>
+        <ion-text>-</ion-text>
+        <ion-input color="dark" placeholder="最高价" type="number" [(ngModel)]="queryData.filter.highest">
+        </ion-input>
+      </ion-item>
+      <ion-row class="options">
+        <ion-col size="4" class="ion-no-padding price_range" *ngFor="let item of queryData.filter.priceRangeOptions"
+          (click)="fillPriceRange(item)">
+          <ion-text>{{ item }}</ion-text>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-item lines="none" class="ion-no-padding">
+        <ion-label>服务保障</ion-label>
+      </ion-item>
+      <ion-row class="options">
+        <ion-col
+          size="4"
+          class="ion-no-padding"
+          *ngFor="let item of queryData.filter.service">
+          <ion-text
+            [ngClass]="{ selected: item.selected }"
+            (click)="item.selected = !item.selected">
+            {{ item.label }}
+          </ion-text>
+        </ion-col>
+      </ion-row> -->
+      <!-- <ion-item lines="none" class="ion-no-padding">
+        <ion-label>商品拍卖</ion-label>
+      </ion-item>
+      <ion-row class="options">
+        <ion-col
+          size="4"
+          class="ion-no-padding"
+          *ngFor="let item of queryData.filter.auction">
+          <ion-text
+            [ngClass]="{ selected: item.selected }"
+            (click)="item.selected = !item.selected">
+            {{ item.label }}
+          </ion-text>
+        </ion-col>
+      </ion-row> -->
+      <ion-row class="handler">
+        <ion-col size="6">
+          <ion-button class="reset" (click)="resetFilter()">重置</ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button class="confirm" (click)="confirmFilter()">确定</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col size="12" class="ion-no-padding" style="display: block;" [ngClass]="{ h135px: slideShow.sort }">
+      <ion-radio-group value="sort_filter" (ionChange)="sortStatusChange($event)">
+        <ion-item>
+          <ion-label>默认排序</ion-label>
+          <ion-text color="medium">按时间倒序</ion-text>
+          <ion-radio slot="start" value="1" slot="end"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>价格 <ion-icon name="arrow-down"></ion-icon>
+          </ion-label>
+          <ion-text color="medium">按价格从高到低排序</ion-text>
+          <ion-radio slot="start" value="2" slot="end"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>价格 <ion-icon name="arrow-up"></ion-icon>
+          </ion-label>
+          <ion-text color="medium">按价格从低到高排序</ion-text>
+          <ion-radio slot="start" value="3" slot="end"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content>
+  <!-- 头部加载 -->
+  <ion-refresher slot="fixed" pullMin="70" (ionRefresh)="pageRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-down" pullingText="下拉刷新" refreshingText="刷新中...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <!-- 商品列表 循环展示 -->
+  <div class="_item ion-no-padding" *ngFor="let item of data" (click)="goToGoodsDetail(item.id)">
+    <ion-text color="dark" class="line_1">
+      <div class="category">
+        <ion-img *ngIf="item.type != '游戏币' && item.type != '代练'" src="assets/images/buy/account.png"></ion-img>
+        <ion-img *ngIf="item.type == '游戏币'" src="assets/images/buy/coins.png"></ion-img>
+        <ion-img *ngIf="item.type == '代练'" src="assets/images/buy/whereas.png"></ion-img>
+      </div>
+      {{ item.goods_name }}
+      <ion-button class="check_pic ion-no-padding ion-no-margin">
+        <ion-icon name="image-outline"></ion-icon>
+      </ion-button>
+    </ion-text>
+    <ion-text color="medium" class="line_2">
+      <ion-text class="tag_item" *ngFor="let tag of item.Parent">{{ tag.title }}</ion-text>
+      <!-- <ion-text color="success" *ngIf="item.online">卖家在线</ion-text> -->
+    </ion-text>
+    <ion-text color="medium" class="line_3">
+      <ion-text color="danger" class="price">{{ item.goods_price }}</ion-text>
+      <!-- <ion-text class="tag_item" *ngIf="item.cost_prop">性价比{{ item.cost_prop }}</ion-text> -->
+      <!-- <ion-text class="tag_item" *ngIf="item.want">{{ item.want }}人想要</ion-text> -->
+    </ion-text>
+  </div>
+  <div class="backdrop"
+    [ngClass]="{ show: slideShow.type || slideShow.filter || slideShow.sort || slideShow.game || slideShow.region }"
+    (click)="QuerySlideStatusChange()">
+  </div>
+  <ion-infinite-scroll #infiniteScroll (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载更多数据...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

@@ -1,0 +1,14 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/personal" text="返回"></ion-back-button>
+    </ion-buttons>
+    <ion-title>申请代练</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <p>￥<span class="fz20">{{ price }}</span></p>
+  <ion-button expand="block" *ngIf="is_whereas == 0" class="applyBtn" mode="ios" (click)="applyBtnOpt('open')">申请开通</ion-button>
+  <ion-button expand="block" *ngIf="is_whereas == 1" class="applyBtn" mode="ios" (click)="applyBtnOpt('return')">申请回退</ion-button>
+</ion-content>

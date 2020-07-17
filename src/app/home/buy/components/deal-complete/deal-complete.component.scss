@@ -1,0 +1,52 @@
+ion-content {
+  font-size: 16px;
+  --background: #eee;
+  ion-row {
+    .top {
+      margin-bottom: 10px;
+      padding: 15px 160px 15px 15px;
+      background: #507dc0 url('src/assets/images/buy/gift.png');
+      background-size: 130px;
+      background-repeat: no-repeat;
+      background-position: right 20px top 50%;
+      ion-text {
+        display: block;
+        &.status {
+          color: #fff;
+          padding-bottom: 10px;
+          font-size: 18px;
+        }
+        &.txt {
+          color: #e4e4e4;
+        }
+      }
+    }
+    .description {
+      padding: 12px 15px;
+      background: #fff;
+      ion-text {
+        display: block;
+      }
+      .title {
+        line-height: 18px;
+        padding-left: 10px;
+        margin-bottom: 15px;
+        position: relative;
+        &::before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 3px;
+          background: #4e86da;
+        }
+      }
+      .txt {
+        color: #333;
+        line-height: 24px;
+      }
+    }
+  }
+}

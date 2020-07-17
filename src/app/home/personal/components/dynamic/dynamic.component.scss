@@ -1,0 +1,95 @@
+ion-header ion-segment {
+  background: #fff;
+}
+ion-content {
+  --background: #f5f6f9;
+  .dynamicMessage {
+    ion-col {
+      &:active {
+        background: #f3f3f3;
+      }
+      &:first-child {
+        padding: 0;
+        background-color: transparent;
+        text-align: right;
+        margin: 0;
+        &:active {
+          background: transparent;
+        }
+        ion-button {
+          --border-radius: 0;
+          vertical-align: top;
+          height: 45px;
+          font-size: 14px;
+          --background: transparent;
+          --background-activated: transparent;
+          --color: #8d9198;
+          --color-activated: #555;
+        }
+      }
+    }
+  }
+  ion-row {
+    padding: 0 15px;
+    ion-col {
+      background-color: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 15px;
+      margin-bottom: 15px;
+      &.no_data {
+        margin: 0 !important;
+        font-size: 14px;
+        background: transparent;
+        text-align: center !important;
+        padding: 25px 0 !important;
+      }
+      &:first-child {
+        margin-top: 15px;
+      }
+      .title {
+        display: block;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 35px;
+        ion-text {
+          float: right;
+          font-weight: 500;
+          font-size: 14px;
+        }
+      }
+      ion-text.msg {
+        font-size: 15px;
+        line-height: 20px;
+      }
+    }
+  }
+  ion-list {
+    ion-item {
+      --detail-icon-font-size: 0;
+      ion-label {
+        > ion-text {
+          display: block;
+          line-height: 28px;
+          height: 24px;
+          white-space: normal;
+          text-overflow: ellipsis;
+        }
+        .title {
+          font-weight: 700;
+          font-size: 16px;
+          .time {
+            float: right;
+            line-height: 24px;
+            font-size: 14px;
+            font-weight: 500;
+          }
+        }
+        .discription {
+          font-weight: 500;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}

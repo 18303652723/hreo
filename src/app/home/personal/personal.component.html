@@ -1,0 +1,208 @@
+<ion-content>
+  <ion-item
+    lines="none"
+    class="ion-no-padding personal"
+    mode="ios"
+    (click)="navigatePersonalInfo($event)">
+    <ion-avatar>
+      <img src="{{ currentUser.img_url }}">
+    </ion-avatar>
+    <ion-label class="ion-no-margin">{{ currentUser.user_title }}</ion-label>
+    <ion-button
+      mode="ios"
+      (click)="navigateMessage($event)">
+      <ion-icon name="chatbox-ellipses-outline" [ngClass]="{ new: currentUser.have_news }"></ion-icon>
+    </ion-button>
+  </ion-item>
+  
+  <ion-row>
+    <ion-col size="12" class="ion-no-padding">
+<!-- === 买家 === -->
+      <ion-item class="label" button>
+        <ion-label class="ion-no-margin">我是买家</ion-label>
+        <ion-text
+          color="medium"
+          class="float"
+          [routerLink]="['/personalComponents/sellerDealTotal']"
+          [queryParams]="{ type: 'buyerOrders' }">
+          所有订单
+        </ion-text>
+      </ion-item>
+      <ion-col size="12" class="row_icons flex buyer ion-no-padding">
+        <div
+          class="item"
+          [routerLink]="['/personalComponents/buyer']"
+          [queryParams]="{ title: '0' }">
+          <i class="iconfont icon-credit-card"></i>
+          <ion-text color="dark">待支付</ion-text>
+        </div>
+        <div
+          class="item"
+          [routerLink]="['/personalComponents/buyer']"
+          [queryParams]="{ title: '1' }">
+          <i class="iconfont icon-distribution"></i>
+          <ion-text color="dark">待发货</ion-text>
+        </div>
+        <div
+          class="item"
+          [routerLink]="['/personalComponents/buyer']"
+          [queryParams]="{ title: '2' }">
+          <i class="iconfont icon-yiqueren-xianxing"></i>
+          <ion-text color="dark">待确认</ion-text>
+        </div>
+      </ion-col>
+    </ion-col>
+
+    
+<!-- === 卖家 === -->
+    <ion-col size="12" class="ion-no-padding">
+      <ion-item class="label">
+        <ion-label>我是卖家
+          <ion-text color="medium" class="sublabel">信用值：新卖家</ion-text>
+        </ion-label>
+      </ion-item>
+      <ion-col size="12" class="row_icons seller ion-no-padding">
+        <div
+          class="item"
+          [routerLink]="['/personalComponents/sellerListOfGoods']"
+          [queryParams]="{ title: '0' }">
+          <i class="iconfont icon-daiban"></i>
+          <ion-text color="dark">待提交</ion-text>
+        </div>
+        <div
+          class="item"
+          [routerLink]="['/personalComponents/sellerListOfGoods']"
+          [queryParams]="{ title: '1' }">
+          <i class="iconfont icon-jishishalou"></i>
+          <ion-text color="dark">审核中</ion-text>
+        </div>
+        <div
+          class="item"
+          [routerLink]="['/personalComponents/sellerListOfGoods']"
+          [queryParams]="{ title: '2' }">
+          <i class="iconfont icon-shangjia"></i>
+          <ion-text color="dark">已上架</ion-text>
+        </div>
+        <div
+          class="item"
+          [routerLink]="['/personalComponents/sellerDealTotal']"
+          [queryParams]="{ type: 'sellerGoods' }">
+          <i class="iconfont icon-yingyongpeizhi"></i>
+          <ion-text color="dark">全部商品</ion-text>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="row_icons seller ion-no-padding">
+        <div
+          class="item"
+          [routerLink]="['/personalComponents/sellerListOfOrder']"
+          [queryParams]="{ title: '0' }">
+          <i class="iconfont icon-hands"></i>
+          <ion-text color="dark">交易中</ion-text>
+        </div>
+        <div
+          class="item"
+          [routerLink]="['/personalComponents/sellerListOfOrder']"
+          [queryParams]="{ title: '2' }">
+          <i class="iconfont icon-yiqueren-xianxing"></i>
+          <ion-text color="dark">待确认</ion-text>
+        </div>
+        <div
+          class="item"
+          [routerLink]="['/personalComponents/sellerListOfOrder']"
+          [queryParams]="{ title: '3' }">
+          <i class="iconfont icon-querengongdan"></i>
+          <ion-text color="dark">交易成功</ion-text>
+        </div>
+        <div
+          class="item"
+          [routerLink]="['/personalComponents/sellerDealTotal']"
+          [queryParams]="{ type: 'sellerOrders' }">
+          <i class="iconfont icon-yingyongpeizhi"></i>
+          <ion-text color="dark">全部订单</ion-text>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="row_icons seller ion-no-padding">
+        <div
+          class="item"
+          [routerLink]="['/personalComponents/applyCashWithdraw']">
+          <i class="iconfont icon-tixian"></i>
+          <ion-text color="dark">申请提现</ion-text>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="row_icons seller ion-no-padding">
+        <div
+          class="item"
+          [routerLink]="['/personalComponents/Agreement']">
+          <i class="iconfont icon-protocol"></i>
+          <ion-text color="dark">协议流程</ion-text>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="row_icons seller ion-no-padding">
+        <div
+          class="item"
+          [routerLink]="['/personalComponents/ApplyWhereas']">
+          <i class="iconfont icon-ceshishenqing"></i>
+          <ion-text color="dark">申请代练</ion-text>
+        </div>
+      </ion-col>
+    </ion-col>
+
+<!-- === 收货及收货信息 === -->
+    <ion-col size="12" class="ion-no-padding collect_info">
+      <ion-item class="label">
+        <ion-label>收货及收款信息</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label><ion-text color="medium">收货手机</ion-text></ion-label>
+        <ion-text color="dark">{{ currentUser.user_phone }}</ion-text>
+        <ion-icon name="checkmark-circle" class="bind_success"></ion-icon>
+      </ion-item>
+      <!-- <ion-item lines="none">
+        <ion-label><ion-text color="medium">收款支付宝</ion-text></ion-label>
+        <ion-button class="unbound ion-no-padding" mode="ios">尚未设置</ion-button>
+      </!-->
+    </ion-col>
+
+<!-- === 常用工具 === -->
+    <ion-col size="12" class="ion-no-padding">
+      <ion-item class="label">
+        <ion-label>常用工具</ion-label>
+      </ion-item>
+      <ion-col size="3" class="row_icons ion-no-padding">
+        <!-- <div
+          class="item"
+          [routerLink]="['/personalComponents/sellerListOfGoods']"
+          [queryParams]="{ title: '0' }">
+          <i class="iconfont icon-duihua"></i>
+          <ion-text color="dark">客服</ion-text>
+        </div> -->
+        <div
+          class="item"
+          [routerLink]="['/personalComponents/collection']"
+          [queryParams]="{ title: '0' }">
+          <i class="iconfont icon-xingxu"></i>
+          <ion-text color="dark">收藏</ion-text>
+        </div>
+        <a
+          class="item" href="tel:/4001002792">
+            <i class="iconfont icon-shouji1"></i>
+            <ion-text color="dark">客服</ion-text>
+        </a>
+        <!-- <div
+          class="item"
+          [routerLink]="['/personalComponents/sellerListOfGoods']"
+          [queryParams]="{ title: '0' }">
+          <i class="iconfont icon-banbenxinxi"></i>
+          <ion-text color="dark">版本信息</ion-text>
+        </div>
+        <div
+          class="item"
+          [routerLink]="['/personalComponents/sellerListOfGoods']"
+          [queryParams]="{ title: '0' }">
+          <i class="iconfont icon-fankuixinxi"></i>
+          <ion-text color="dark">用户反馈</ion-text>
+        </div> -->
+      </ion-col>
+    </ion-col>
+  </ion-row>
+</ion-content>

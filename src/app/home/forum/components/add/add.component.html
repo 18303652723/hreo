@@ -1,0 +1,69 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/forum" text="取消"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="makeSure()">
+        完成
+      </ion-button>
+    </ion-buttons>
+    <ion-title>发论坛</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <input
+    class="hide_upload_input"
+    #fileInput
+    type="file"
+    multiple
+    accept="image/jpeg,image/jpg"
+    (change)="uploadImg($event)" />
+    
+    <ion-item-group>
+      <!-- 发布商品图片 -->
+      <ion-item-divider mode="ios">
+        <ion-label color="medium">1：{{ uploadPicture.label }}</ion-label>
+      </ion-item-divider>
+      <div class="upload_pictrue" *ngIf="uploadPicture.type === 'uploadPicture'" >
+        <div class="img_item" *ngFor="let img of selectedImgSrc">
+          <ion-img [src]="img.src"></ion-img>
+          <div class="progress" [style.display]="img.progress == 100 ? 'none' : 'block'" [style.width]="img.progress + '%'"></div>
+        </div>                
+        <ion-button
+          mode="ios"
+          class="ion-no-margin"
+          (click)="fileInput.click()">
+          <ion-icon name="image-outline"></ion-icon>
+        </ion-button>
+        <ion-text color="danger">*上传与图片无关的图片将无法通过审核</ion-text>
+      </div>
+    </ion-item-group>
+    
+    <ion-item-divider mode="ios">
+      <ion-label color="medium">2：分享新鲜事</ion-label>
+    </ion-item-divider>
+
+    <template>
+      <ion-textarea rows="4" placeholder="这一刻的想法..." [(ngModel)]="forumData.content"></ion-textarea>
+    </template>
+
+    <ion-item-divider mode="ios">
+      <ion-label color="medium">3：我的分类</ion-label>
+    </ion-item-divider>
+
+    <template>
+      <ion-item lines="none" mode="ios">
+        <ion-label class="important">发布至：</ion-label>
+        <ion-select interface="popover" [(ngModel)]="forumData.shareType">
+          <ion-select-option *ngFor="let item of classifyList" [value]="item.id">{{ item.title }}</ion-select-option>
+          <!-- <ion-select-option value="1">售后</ion-select-option>
+          <ion-select-option value="2">问答</ion-select-option>
+          <ion-select-option value="3">精华</ion-select-option> -->
+        </ion-select>
+      </ion-item>
+    </template>
+
+    <!-- <ion-button class="next" [disabled]="false" (click)="makeSure()">确定</ion-button> -->
+</ion-content>

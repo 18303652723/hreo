@@ -1,0 +1,57 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/personal"></ion-back-button>
+    </ion-buttons>
+    <ion-title>消息</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- 头部加载 -->
+  <ion-refresher 
+    slot="fixed"
+    pullMin="70" 
+    (ionRefresh)="pageRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-down"
+      pullingText="下拉刷新"
+      refreshingText="刷新中...">
+    </ion-refresher-content>
+  </ion-refresher>
+  
+  <div class="background_round"></div>
+  <ion-row class="navigate_bar">
+    <!-- <ion-col size="4">
+      <i class="iconfont icon-xingxu"></i>
+      <ion-text>推荐活动</ion-text>
+    </ion-col> -->
+    <ion-col size="6" [routerLink]="['/personalComponents/dynamic']">
+      <i class="iconfont icon-dongtai"></i>
+      <ion-text>动态</ion-text>
+    </ion-col>
+    <ion-col size="6" [routerLink]="['/personalComponents/interaction']">
+      <i class="iconfont icon-xiaoxi"></i>
+      <ion-text>互动消息</ion-text>
+    </ion-col>
+  </ion-row>
+
+  <ion-list>
+    <ion-item
+      lines="none"
+      button
+      *ngFor="let item of data"
+      (click)="goToCommunication(item.id)">
+      <ion-avatar slot="start">
+        <ion-img [src]="item.avatar" ></ion-img>
+      </ion-avatar>
+      <ion-label>
+        <ion-text class="nickname" [ngClass]="{new: item.have_new}">
+          {{ item.nickname }}
+          <ion-text color="medium">{{ item.time }}</ion-text>
+        </ion-text>
+        <ion-text class="latest_msg" color="medium">{{ item.latest_msg }}</ion-text>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

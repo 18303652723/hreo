@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="primary" mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ sellerName }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [scrollEvents]="true">
+  
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+		<ion-refresher-content pullingIcon="arrow-down" pullingText="下拉刷新" refreshingText="刷新中...">
+	  </ion-refresher-content>
+  </ion-refresher>
+  
+  <div class="item" [ngClass]="item.userOrSelf" *ngFor="let item of data">
+    <ion-avatar>
+      <img src="{{ item.avatar }}" />
+    </ion-avatar>
+    <p class="name" *ngIf="item.userOrSelf === 'user'">{{ item.name }}<span>{{ item.time }}</span></p>
+    <p class="name" *ngIf="item.userOrSelf === 'self'"><span>{{ item.time }}</span>{{ item.name }}</p>
+    <div class="content_box">
+      <ion-text>{{ item.content }}</ion-text>
+      <ion-img *ngIf="item.content_img != null" [src]="item.content_img"></ion-img>
+    </div>
+  </div>
+  <ion-item lines="none" [button]="false" class="sendMsg">
+    <ion-icon name="image-outline" slot="start" (click)="file.click()"></ion-icon>
+    <ion-input placeholder="发送消息..." [(ngModel)]="sending.messageStr" (ionBlur)="scrollTop()"></ion-input>
+    <ion-button
+      slot="end"
+      class="ion-no-margin"
+      [disabled]="!sending.messageStr"
+      (click)="sendMessage()">
+      发送
+    </ion-button>
+  </ion-item>
+</ion-content>
+<input #file type="file" class="eleFile" accept="image/jpg,image/jpeg" multiple (change)="uploadFile($event)" />
+<!-- <ion-footer>
+</ion-footer> -->

@@ -1,0 +1,25 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/personal" text="返回"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <span>{{ title }}</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item-group>
+    <ion-item
+      lines="full"
+      mode="ios"
+      button
+      *ngFor="let item of agreementList"
+      (click)="checkDealSecurity(item)">
+      <ion-label>
+        {{item.title}}
+      </ion-label>
+    </ion-item>
+  </ion-item-group>
+</ion-content>

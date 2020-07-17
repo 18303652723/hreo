@@ -1,0 +1,207 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/buy" text="返回"></ion-back-button>
+    </ion-buttons>
+    <ion-title>商品详情</ion-title>
+    <ion-buttons slot="end">
+      <ion-button mode="ios">
+        <ion-icon name="ellipsis-horizontal"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true">
+  <ion-slides pager="true" [options]="slidesConfig" [ngClass]="{ active: slidesConfig.show }">
+    <ion-slide *ngFor="let item of goodsImg" (click)="slidesConfig.show = false">
+      <ion-img [src]="item"></ion-img>
+    </ion-slide>
+  </ion-slides>
+  <ion-row class="top">
+    <ion-col size="12" class="goods_img ion-no-padding" (click)="slidesConfig.show = true">
+      <ion-img [src]="goodsImg[0]"></ion-img>
+      <ion-text color="light">点击查看（共{{ goodsImg.length }}张）</ion-text>
+    </ion-col>
+    <ion-col size="12" class="info ion-no-padding">
+      <ion-item lines="none">
+        <ion-text>
+          <ion-text class="line_1">
+            <ion-text>账</ion-text> {{ goodsData.goods_name }}
+          </ion-text>
+          <ion-text class="line_2">
+            <ion-text class="price" color="danger">￥{{ goodsData.goods_price }}{{ goodsData.attr_cate == '租号' ? ' + (押金：￥' + ws_deposit + ')' : '' }}</ion-text>
+            <!-- <ion-text class="price" color="danger">￥{{ goodsData.goods_price }}</ion-text> -->
+            <!-- <ion-text class="reduction">购买减10元</ion-text> -->
+          </ion-text>
+          <ion-text class="line_3">
+            <ion-text class="update" color="medium">{{ goodsData.date_time }}</ion-text>
+            <!-- <ion-text class="online" color="success">卖家在线</ion-text> -->
+          </ion-text>
+        </ion-text>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12" class="ion-no-padding">
+      <ion-item lines="none" mode="ios" button>
+        <ion-label class="ion-no-margin">
+          认证信誉
+          <i class="iconfont icon-dingdangdaishimingrenzheng"></i>实名认证
+        </ion-label>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12" class="ion-no-padding">
+      <ion-item lines="none" mode="ios" button>
+        <ion-label class="ion-no-margin">
+          商品保障
+          <i class="iconfont icon-kuaidifei"></i>平台发货
+        </ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-segment mode="md" [(ngModel)]="segmentValue"
+    [ngClass]="{ segmentFixed: offsetTop.contentOffsetTop > offsetTop.segmentOffsetTop }"
+    [style.top]="offsetTop.contentOffsetTop > offsetTop.segmentOffsetTop ? ionHeader.el.offsetHeight + 'px' : 0"
+    (ionChange)="segmentChange($event)">
+    <ion-segment-button value="商品" mode="md">
+      <ion-label>商品</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="推荐" mode="md">
+      <ion-label>推荐</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="流程" mode="md">
+      <ion-label>流程</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-row class="goods_info" #goods_info [style.marginTop]="offsetTop.contentOffsetTop > offsetTop.segmentOffsetTop ?
+      ionSegment.el.offsetHeight + 10 + 'px' : 0">
+    <ion-col size="12" *ngFor="let item of goodsInfoData">
+      <ion-text color="medium" class="label">{{ item.type }}</ion-text>
+      <ion-text color="dark" class="value">{{ item.value }}</ion-text>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="store">
+    <ion-col class="ion-no-padding" [routerLink]="['/sellComponents/sellerDetail']" [queryParams]="{ user_id: sell_store_info.sell_user_id }">
+      <ion-item lines="none" button>
+        <ion-label>
+          <ion-text class="title">{{ sell_store_info.sell_user_name }}</ion-text>
+          <ion-text class="credit" color="medium">信用:新卖家</ion-text>
+        </ion-label>
+        <ion-text>
+          <ion-text>{{ sell_store_info.sell_goods_count }}</ion-text>
+          <ion-text color="medium" class="label">全部商品</ion-text>
+        </ion-text>
+        <ion-text>
+          <ion-text>{{ sell_store_info.sell_isdeal_goods_count }}</ion-text>
+          <ion-text color="medium" class="label">近7天成交量</ion-text>
+        </ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="recommend" #recommend>
+    <ion-col size="6" *ngFor="let item of relatedGoods">
+      <div (click)="goToLink(item.id,'detail')">
+        <div class="goods_image">
+          <ion-img [src]="item.picurl"></ion-img>
+        </div>
+        <ion-text color="dark" class="goods_title">{{ item.goods_name }}</ion-text>
+        <ion-text color="medium" class="goods_tags">
+          <ion-text *ngFor="let tag of item.Parent">{{ tag.title }}</ion-text>
+        </ion-text>
+        <ion-text color="danger" class="goods_price">{{ item.goods_price }}</ion-text>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="process" #process>
+    <ion-col size="12">
+      <ion-text color="dark" class="title">交易流程</ion-text>
+      <div class="content">
+        <ion-text class="label">
+          <ion-text>1</ion-text>下单支付
+        </ion-text>
+        <div class="context">进入在线客服聊天页面，排队等待</div>
+
+        <ion-text class="label">
+          <ion-text>2</ion-text>等待发货
+        </ion-text>
+        <div class="context">
+          客服开始验号，截图给您确认是否继续购买<br />
+          客服进行改密、换绑
+        </div>
+
+        <ion-text class="label danger">
+          <ion-text>!</ion-text>【重要】账号交易不使用QQ沟通，谨防骗子！
+        </ion-text>
+
+        <ion-text class="label">
+          <ion-text>3</ion-text>买家收货
+        </ion-text>
+        <div class="context">进入【个人中心>未读消息】查看账号密码</div>
+
+        <ion-text class="label">
+          <ion-text>4</ion-text>买家收货
+        </ion-text>
+        <div class="context">
+          待买家确认收货（登录游戏验证、改密等）<br />
+          自动确认收货：一般24小时；网易账号36小时；QQ账号96小时
+        </div>
+
+        <ion-text class="label">
+          <ion-text>5</ion-text>卖家收款
+        </ion-text>
+        <div class="context">买家已确认收货，本平台转账给商家</div>
+
+        <ion-text class="label">
+          <ion-text>6</ion-text>交易成功
+        </ion-text>
+        <div class="context">卖家收到货款，交易完成</div>
+      </div>
+    </ion-col>
+    <ion-col size="12">
+      <ion-text color="dark" class="title">温馨提示</ion-text>
+      <div class="tips">
+        <ion-text class="item">
+          <ion-text>1</ion-text>请您认真核对商品，仔细填写收货信息，以免自身填写错误造成损失。
+        </ion-text>
+        <ion-text class="item">
+          <ion-text>2</ion-text>wow自由交易平台不会以任何名义让您进行私下交易，任何私下交易均为诈骗。如遇到要求进行私下交易的，请立即联系客服举报。
+        </ion-text>
+        <ion-text class="item">
+          <ion-text>3</ion-text>下单成功后，请您务必使用wow自由交易平台官方聊天工具进行订单沟通，如发生纠纷，官方将以wow自由交易平台聊天工具作为重要判定依据。
+        </ion-text>
+        <ion-text class="item">
+          <ion-text>4</ion-text>交易的过程中，如游戏官方存在收取交易手续费情况，则该部分手续费默认由买家承担。
+        </ion-text>
+      </div>
+    </ion-col>
+  </ion-row>
+  <div class="statement">
+    <ion-text color="medium" class="title">免责声明</ion-text>
+    <ion-text color="medium">1.所展示的商品供求信息由买卖方自行提供，其真实性、准确性和合法性由信息发布人负责。</ion-text>
+    <ion-text color="medium">2.账号真实情况以客服截图为准。</ion-text>
+    <ion-text color="medium">3.国家法律规定，未成年人不能参加虚拟物品交易。</ion-text>
+    <ion-text color="medium">4.本平台提供的数字化商品根据商品性质不支持七天无理由退货及三包服务。</ion-text>
+  </div>
+  <!-- <ion-footer mode="md"> -->
+  <ion-row class="footer" *ngIf="isDisable == false">
+    <ion-col size="2" class="ion-no-padding" (click)="collectBtn()">
+      <ion-icon name="star-outline" *ngIf="!collect_status"></ion-icon>
+      <ion-icon name="star" *ngIf="collect_status" class="active"></ion-icon>
+      <ion-text color="meidum">收藏</ion-text>
+    </ion-col>
+    <ion-col size="3" class="ion-no-padding">
+      <ion-button class="ion-no-margin dialog" mode="ios" (click)="goToLink(record_id,'communication')">
+        聊聊
+      </ion-button>
+    </ion-col>
+    <ion-col size="7" class="ion-no-padding">
+      <ion-button class="ion-no-margin buy" mode="ios" (click)="goToLink(record_id,'purchaseConfirm')">
+        立即购买
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <!-- </ion-footer> -->
+</ion-content>

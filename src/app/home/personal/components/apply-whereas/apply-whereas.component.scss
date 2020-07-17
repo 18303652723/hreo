@@ -1,0 +1,28 @@
+ion-content {
+    ion-text.label {
+        display: block;
+        padding: 35px 15px 10px;
+        font-size: 16px;
+        ion-text {
+            float: right;
+        }
+    }
+    p {
+        text-align: center;
+        span {
+            margin-left: 4px;
+        }
+        span.fz20 { 
+            font-size: 20px;
+        }
+    }
+    ion-button.applyBtn {
+        --background: linear-gradient(to right, #5bc7f9, #3d8af7);
+        --background-activated: linear-gradient(to right, #4cbef3, #207af8);
+        --color: #fff;
+        --color-activated: #fff;
+        margin: 0 15px;
+        height: 40px;
+        --border-radius: 5px;
+    }
+}

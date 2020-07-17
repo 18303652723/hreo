@@ -1,0 +1,89 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/personal"></ion-back-button>
+    </ion-buttons>
+    <ion-title>提现申请</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-text class="label" color="medium">提现金额
+    <ion-text color="dark"
+      [routerLink]="['/personalComponents/cashWithdrawRecord']">
+      查看记录
+    </ion-text>
+  </ion-text>
+  <ion-item lines="none" class="input_price">
+    <ion-label>￥</ion-label>
+    <form action="javascript:;">
+      <ion-input
+        type="number"
+        name="price"
+        [(ngModel)]="price">
+      </ion-input>
+    </form>
+  </ion-item>
+  <ion-text class="sublabel" color="medium">可提现佣金：{{ balance }}元</ion-text>
+  <ion-segment [(ngModel)]="type" mode="md">
+    <ion-segment-button value="1" mode="md">微信转账</ion-segment-button>
+    <ion-segment-button value="2" mode="md">银行卡对账</ion-segment-button>
+  </ion-segment>
+  <div *ngIf="type === '1'">
+    <ion-item class="wechat_name" lines="none">
+      <ion-label class="ion-no-margin">微信昵称账号</ion-label>
+      <form action="javascript:;">
+        <ion-input
+          placeholder="微信昵称账号"
+          type="text"
+          name="name"
+          (ionInput)="inputVal('wechat', 'wechatAccount', $event)">
+        </ion-input>
+      </form>
+    </ion-item>
+    <div class="qrcode" *ngIf="wechat.qrcodeUrl">
+      <img [src]="wechat.qrcodeUrl" />
+      <ion-icon name="close-circle-outline" (click)="wechat.qrcodeUrl = ''"></ion-icon>
+    </div>
+    <ion-button *ngIf="!wechat.qrcodeUrl" class="add_qrcode ion-no-margin" mode="ios" (click)="fileInput.click()">添加收款二维码</ion-button>
+  </div>
+  <div *ngIf="type === '2'">
+    <ion-item lines="none">
+      <ion-label class="ion-no-margin">开户银行</ion-label>
+      <form action="javascript:;">
+        <ion-input
+          placeholder="请输入开户银行"
+          type="text"
+          name="bank"
+          (ionInput)="inputVal('bankAccount', 'bank', $event)">
+        </ion-input>
+      </form>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label class="ion-no-margin">开户卡号</ion-label>
+      <form action="javascript:;">
+        <ion-input
+          placeholder="请输入开户卡号"
+          type="number"
+          name="account"
+          (ionInput)="inputVal('bankAccount', 'account', $event)">
+        </ion-input>
+      </form>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label class="ion-no-margin">开户姓名</ion-label>
+      <form action="javascript:;">
+        <ion-input
+          placeholder="请输入开户姓名"
+          type="text"
+          name="name"
+          (ionInput)="inputVal('bankAccount', 'name', $event)">
+        </ion-input>
+      </form>
+    </ion-item>
+  </div>
+  <ion-text color="medium" class="tips">注：最低提现额为0.00元，系统48小时内完成审核，7个工作日到账</ion-text>
+  <ion-button expand="block" class="submit" mode="ios" (click)="submit()">提交</ion-button>
+</ion-content>
+
+<input type="file" #fileInput accept="image/*" (change)="uploadFile($event)" />

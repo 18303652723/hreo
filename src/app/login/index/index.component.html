@@ -1,0 +1,50 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>手机验证码登录</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="none">
+    <ion-label position="floating" color="medium">手机号码</ion-label>
+    <ion-input
+      type="number"
+      maxlength="11"
+      (ionBlur)="scrollToTop()"
+      [(ngModel)]="mobile">
+    </ion-input>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label position="floating" color="medium">图形验证码</ion-label>
+    <ion-input
+      type="number"
+      maxlength="6"
+      (ionBlur)="scrollToTop()"
+      (ionChange)="inputImgCode = $event.detail.value">
+    </ion-input>
+    <ion-text color="primary" (click)="getImgCode()" slot="end" [innerHTML]="codeImg"></ion-text>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label position="floating" color="medium">验证码</ion-label>
+    <ion-input
+      type="number"
+      maxlength="6"
+      (ionBlur)="scrollToTop()"
+      (ionChange)="code = $event.detail.value">
+    </ion-input>
+    <ion-text *ngIf="countDown === 0" color="primary" (click)="getCode()" slot="end">获取验证码</ion-text>
+    <ion-text *ngIf="countDown !== 0" color="medium" slot="end">{{ countDown >= 10 ? countDown : '0' + countDown }}s后重新获取</ion-text>
+  </ion-item>
+
+  <ion-button
+    expand="block"
+    class="login ion-no-margin"
+    [disabled]="!code || !mobile"
+    (click)="login()">
+    立即登录
+  </ion-button>
+  <ion-text align="center">登录即同意<ion-text color="primary" (click)="checkDealSecurity('5ee8914b0d9e6d45ad001e52','用户协议')">《用户协议》</ion-text>及<ion-text color="primary" (click)="checkDealSecurity('5ee891650d9e6d45ad001e53','隐私政策')">《隐私政策》</ion-text></ion-text>
+</ion-content>

@@ -1,0 +1,124 @@
+ion-content {
+  --background: #f6f7f8;
+  .personal {
+    --background: url('../../../assets/images/personal_head.jpg') no-repeat left bottom / cover;
+    --padding-top: 40px;
+    --padding-bottom: 25px;
+    --padding-start: 15px;
+    overflow: visible;
+    ion-avatar {
+      width: 60px;
+      height: 60px;
+      margin-right: 8px;
+    }
+    ion-label {
+      color: #fff;
+    }
+    ion-button {
+      --background: transparent;
+      --background-activated: #88b5f4;
+      --padding-top: 15px;
+      --padding-bottom: 15px;
+      position: absolute;
+      right: 15px;
+      top: -20px;
+      ion-icon {
+        color: #fff;
+        font-size: 22px;
+        &.new::after {
+          content: "";
+          width: 8px;
+          height: 8px;
+          border-radius: 50%; 
+          background-color: #f36630;
+          position: absolute;
+          right: 0px;
+          top: 0px;
+        }
+      }
+    }
+  }
+  ion-row {
+    > ion-col {
+      background: #fff;
+      margin-bottom: 10px;
+      .label {
+        --background-activated: transparent;
+        --min-height: 45px;
+        ion-label {
+          font-weight: 700;
+          color: #333;
+          ion-text.sublabel {
+            font-weight: 500;
+            display: block;
+            font-size: 12px;
+            padding: 3px 0;
+          }
+        }
+        > ion-text.float {
+          font-size: 12px;
+        }
+      }
+      .row_icons {
+        font-size: 14px;
+        font-size: 0;
+        &.flex {
+          display: flex;
+          div.item {
+            width: unset;
+            flex: 1;
+          }
+        }
+        &.buyer .iconfont {
+          color: #5a9cef;
+        }
+        &.seller .iconfont {
+          color: #8361b1;
+        }
+        .item {
+          width: 25%;
+          padding: 15px 0;
+          display: inline-block;
+          font-size: 0;
+          color: #333;
+          text-align: center;
+          &:active {
+            background: #f3f3f3;
+          }
+          .iconfont {
+            font-size: 26px;
+            display: block;
+          }
+          ion-text {
+            font-size: 13px;
+            padding: 8px 0 0;
+            display: inline-block;
+          }
+        }
+      }
+    }
+    ion-col.collect_info {
+      ion-item {
+        .bind_success {
+          color: #5a9cef;
+          font-size: 20px;
+          margin-left: 5px;
+        }
+        .unbound {
+          font-size: 13px;
+          // padding: 4px 6px;
+          --padding-top: 4px;
+          --padding-bottom: 4px;
+          --padding-start: 6px;
+          --padding-end: 6px;
+          border: 1px solid #d07056;
+          --border-radius: 3px;
+          border-radius: 4px;
+          --color: #d07056;
+          --background: transparent;
+          --background-activated: #f3f3f3;
+        }
+      }
+    }
+  }
+}

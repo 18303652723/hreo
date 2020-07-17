@@ -1,0 +1,26 @@
+ion-content {
+  --background: #eee;
+  ion-slides {
+    height: 100%;
+    ion-item-group {
+      width: 100%;
+      height: 100%;
+      ion-item-divider {
+        --background: #eee;
+        ion-label {
+          font-size: 13px;
+        }
+      }
+      template {
+        display: block;
+        border-bottom: 1px solid #c7c7cb;
+        &:last-child {
+          border: 0;
+        }
+        ion-item.nochild {
+          --detail-icon-opacity: 0;
+        }
+      }
+    }
+  }
+}

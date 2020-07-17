@@ -1,0 +1,23 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons>
+      <ion-button (click)="modalDismiss()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+  <ion-searchbar [placeholder]="'搜索' + title" (ionChange)="search($event)"></ion-searchbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item
+      lines="full"
+      *ngFor="let item of tempData, let i = index"
+      button
+      (click)="modalDismiss(item.title)">
+      <ion-label>{{ item.title }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

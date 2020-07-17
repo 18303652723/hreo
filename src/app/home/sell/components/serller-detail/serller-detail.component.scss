@@ -1,0 +1,125 @@
+ion-content {
+  div.top {
+    position: relative;
+    ion-item {
+      --padding-top: 8px;
+      font-size: 16px;
+      ion-thumbnail {
+        width: 60px;
+        height: 60px;
+      }
+      &:last-child {
+        --min-height: 30px;
+        --padding-bottom: 8px;
+      }
+      ion-text.info {
+        ion-text {
+          display: inline-block;
+          padding: 0 10px;
+          font-size: 13px;
+          &:last-child {
+            border-left: 1px solid #e0e0e0;
+          }
+        }
+        .title {
+          font-size: 16px;
+          width: 100%;
+          display: block;
+          padding-bottom: 5px;
+          .real_name {
+            display: inline-block;
+            font-size: 13px;
+            padding: 1px 5px 0 0;
+            border-radius: 18px;
+            border: 1px solid #5dcb8a;
+            color: #5dcb8a;
+            vertical-align: top;
+            ion-icon {
+              font-size: 16px;
+              vertical-align: top;
+              margin-right: 1px;
+            }
+          }
+        }
+      }
+      ion-label {
+        vertical-align: middle;
+        display: flex;
+        align-items: center;
+        ion-text {
+          font-size: 14px;
+        }
+        ion-icon {
+          &.active {
+            color: #5498ee;
+          }
+        }
+        i.iconfont {
+          margin-left: 8px;
+          color: #4b86f6;
+          font-size: 20px;
+          margin: 0 3px 0 8px;
+        }
+      }
+    }
+  }
+
+  ion-list {
+    ion-item {
+      --detail-icon-font-size: 0;
+      ion-thumbnail {
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      ion-label {
+        .title {
+          display: block;
+          line-height: 30px;
+          ion-text {
+            display: inline-block;
+          }
+          ion-icon {
+            font-size: 18px;
+            color: #9fc8f7;
+            vertical-align: middle;
+          }
+          .type{
+            padding: 2px;
+            border-radius: 3px;
+            color: #fff;
+            background: #ec7098; 
+            font-size: 14px;
+            line-height: 14px;
+          }
+          .title {
+            font-size: 16px;
+            line-height: 1;
+            margin-left: 4px;
+          }
+        }
+        .tags {
+          display: block;
+          ion-text {
+            display: inline-block;
+            font-size: 14px;
+            padding: 0 5px;
+            border-left: 1px solid #e8e8e8;
+            &:first-child {
+              border: 0;
+              padding-left: 0;
+            }
+          }
+        }
+        .price {
+          font-weight: 700;
+          font-size: 18px;
+          line-height: 30px;
+          &::before {
+            content: "￥";
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}

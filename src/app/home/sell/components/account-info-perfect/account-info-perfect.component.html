@@ -1,0 +1,64 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button text="返回"></ion-back-button>
+    </ion-buttons>
+    <ion-title>发布商品</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-text color="medium">【寄售交易】由本平台发货客服代替您给买家发货（7*24小时服务），快速完成交易</ion-text>
+  <ion-text color="danger">谨防受骗：请勿向任何人泄露您的账号和密码</ion-text>
+  <ion-item-group *ngFor="let lines of formDataLayout, let i = index">
+    <ion-item lines="none" mode="ios" *ngIf="lines.type == '2' && lines.secret_bdma && lines.secret_bdma == '1'">
+      <ion-label [ngClass]="{'important': lines.required}">{{ lines.description }}</ion-label>
+      <ion-input type="text" [(ngModel)]="formData[lines.title]"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" mode="ios" *ngIf="lines.type == '1' && lines.secret_bdma && lines.secret_bdma == '1'">
+      <ion-label [ngClass]="{'important': lines.required}">{{ lines.description }}</ion-label>
+      <ion-input type="number" [(ngModel)]="formData[lines.title]"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" mode="ios" *ngIf="lines.type == '6' && lines.secret_bdma && lines.secret_bdma == '1'">
+      <ion-label [ngClass]="{'important': lines.required}">{{ lines.description }}</ion-label>
+      <ion-select interface="popover" [(ngModel)]="formData[lines.title]">
+        <ion-select-option
+          [value]="selectItem.label"
+          *ngFor="let selectItem of lines.is_default">
+          {{ selectItem.label }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item lines="none" *ngIf="lines.type == '7' && lines.secret_bdma && lines.secret_bdma == '1'">
+      <ion-label class="important fullHeight">{{ lines.description }}</ion-label>
+      <ion-row>
+        <ion-col size="12" class="ion-no-padding tips">（可多选）</ion-col>
+        <ion-col size="4" class="ion-no-padding" *ngFor="let selectItem of lines.is_default">
+          <ion-text
+            [ngClass]="{ active: selectItem.selected }"
+            (click)="multipleStatusChange(selectItem, lines.title)">
+            {{ selectItem.label }}
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+
+    <ion-item lines="none" mode="ios" *ngIf="lines.type == '3' && lines.secret_bdma && lines.secret_bdma == '1'">
+      <ion-label [ngClass]="{'important': lines.required}">{{ lines.description }}</ion-label>
+      <ion-textarea placeholder="请输入..." [(ngModel)]="formData[lines.title]"></ion-textarea>
+    </ion-item>
+
+</ion-item-group>
+
+  <ion-text color="medium">温馨提示：国家法律规定，未成年人不能参与虚拟物品交易。</ion-text>
+  <ion-text color="danger">(所有信息经过加密传输及存储，确保安全)</ion-text>
+  <ion-text  color="dark">
+    <ion-checkbox mode="ios" [(ngModel)]="formData.agreedTermS"></ion-checkbox>
+    我已阅读并同意<ion-text color="primary" (click)="checkDealSecurity()">《卖家出售协议》</ion-text>
+  </ion-text>
+
+  <ion-button class="submit" [disabled]="!formData.agreedTermS" (click)="submit()">提交</ion-button>
+</ion-content>

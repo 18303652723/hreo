@@ -1,0 +1,62 @@
+<ion-header mode="ios">
+  <ion-toolbar class="ion-no-padding" mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/forum" text="返回"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-no-padding">消息</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row class="message">
+    <ion-col size="12" class="ion-no-padding" *ngFor="let item of newmsgdata">
+      <ion-item mode="ios" lines="none" mode="ios">
+        <ion-avatar slot="start">
+          <img [src]="item.opt_user_url">
+        </ion-avatar>
+        <ion-label>
+          <ion-text class="title">{{ item.opt_user_name }}</ion-text>
+          <ion-text class="ago">{{ item.time_trans }}</ion-text>
+        </ion-label>
+      </ion-item>
+      <ion-text color="dark" class="context" *ngIf="item.type == 2">{{ item.content }}</ion-text>
+      <ion-text color="dark" class="context" *ngIf="item.type == 1">{{ item.opt_user_name }}评论你：{{ item.content }}</ion-text>
+      <ion-text color="dark" class="context" *ngIf="item.type == 3">{{ item.opt_user_name }}回复你：{{ item.content }}</ion-text>
+      <ion-text class="history_msg">{{ item.forum_content }}</ion-text>
+      <ion-button class="reply ion-no-padding" mode="ios" (click)="reply(item.id, item.opt_user_name)">
+        <i class="iconfont icon-pinglun"></i>
+        回复
+      </ion-button>
+    </ion-col>
+
+    <ion-col size="12" class="ion-no-padding" *ngIf="!history_msg_show">
+      <ion-item mode="ios" lines="none" mode="ios">
+        <ion-label>
+          <ion-text class="more" (click)="history_msg_show = true">查看更早的消息...</ion-text>
+        </ion-label>
+      </ion-item>
+    </ion-col>
+
+    <template *ngIf="history_msg_show">
+      <ion-col size="12" class="ion-no-padding" *ngFor="let item of historymsgdata">
+        <ion-item mode="ios" lines="none" mode="ios">
+          <ion-avatar slot="start">
+            <img [src]="item.opt_user_url">
+          </ion-avatar>
+          <ion-label>
+            <ion-text class="title">{{ item.opt_user_name }}</ion-text>
+            <ion-text class="ago">{{ item.time_trans }}</ion-text>
+          </ion-label>
+        </ion-item>
+        <ion-text color="dark" class="context" *ngIf="item.type == 2">{{ item.content }}</ion-text>
+        <ion-text color="dark" class="context" *ngIf="item.type == 1">{{ item.opt_user_name }}评论你：{{ item.content }}</ion-text>
+        <ion-text color="dark" class="context" *ngIf="item.type == 3">{{ item.opt_user_name }}回复你：{{ item.content }}</ion-text>
+        <ion-text class="history_msg">{{ item.forum_content }}</ion-text>
+        <ion-button class="reply ion-no-padding" mode="ios" (click)="reply(item.id, item.opt_user_name)">
+          <i class="iconfont icon-pinglun"></i>
+          回复
+        </ion-button>
+      </ion-col>
+    </template>
+  </ion-row>
+</ion-content>

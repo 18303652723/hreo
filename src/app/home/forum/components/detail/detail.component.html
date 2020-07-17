@@ -1,0 +1,67 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/forum" text="返回"></ion-back-button>
+    </ion-buttons>
+    <ion-title>详情</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides pager="true" [options]="slidesConfig" [ngClass]="{ active: slidesConfig.show }">
+    <ion-slide *ngFor="let item of goodsImg" (click)="slidesConfig.show = false">
+      <ion-img [src]="item"></ion-img>
+    </ion-slide>
+  </ion-slides>
+  <ion-item lines="none" mode="ios">
+    <ion-avatar slot="start">
+      <img [src]="forum_info.user_url">
+    </ion-avatar>
+    <ion-label>
+      <ion-text class="title">{{ forum_info.user_name }}</ion-text>
+      <ion-text class="ago">{{ forum_info.time_trans }}
+        <ion-text class="browse_count">12人浏览</ion-text>
+      </ion-text>
+    </ion-label>
+  </ion-item>
+  <ion-text color="dark" class="context">{{ forum_info.content }}</ion-text>
+  <ion-row class="images">
+    <ion-col size="4" *ngFor="let item of forum_info.forum_url">
+      <ion-img [src]="item" (click)="slideshowbtn()"></ion-img>
+    </ion-col>
+  </ion-row>
+  <div class="line_separate"></div>
+  <ion-row class="comment_list">
+    <ion-col size="12" class="ion-no-padding top">评论({{ comment_data.length }})</ion-col>
+    <ion-col size="12" class="comment_item ion-no-padding" *ngFor="let item of comment_data">
+      <ion-item lines="none" mode="ios">
+        <ion-avatar slot="start">
+          <img [src]="item.user_url">
+        </ion-avatar>
+        <ion-label>
+          <ion-text class="title">{{ item.user_name }}</ion-text>
+          <ion-text class="ago">{{ item.time_trans }}</ion-text>
+        </ion-label>
+      </ion-item>
+      <ion-text color="dark" class="context">{{ item.content }}</ion-text>
+    </ion-col>
+
+    <ion-col size="12" class="no_data" *ngIf="!is_have_comment">
+      <ion-img src="assets/images/forum/no_data.png"></ion-img>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-footer>
+  <ion-item lines="none">
+    <ion-input
+      mode="ios"
+      placeholder="添加评论..."
+      [(ngModel)]="content"
+      (ionBlur)="scrollToTop()">
+    </ion-input>
+    <ion-button (click)="send()" color="light" mode="ios"><i class="iconfont icon-pinglun" slot="end"></i></ion-button>
+    <ion-button (click)="thumbUp()" color="light" mode="ios"> <i class="iconfont icon-dianzan active" slot="end"></i></ion-button>
+    <!-- <i class="iconfont icon-dianzan active" slot="end" (click)="thumbUp()"></i> -->
+  </ion-item>
+</ion-footer>

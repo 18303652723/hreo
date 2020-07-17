@@ -1,0 +1,37 @@
+ion-content {
+  --background: #eee;
+  --padding-bottom: 30px;
+  > ion-text {
+    width: 100%;
+    font-size: 14px;
+    padding: 0 15px;
+    line-height: 26px;
+    display: inline-block;
+    vertical-align: middle;
+    ion-checkbox {
+      --size: 18px;
+      vertical-align: middle;
+    }
+  }
+  ion-item-group {
+    margin: 10px 0;
+    ion-item-divider {
+      ion-label {
+        font-size: 13px;
+      }
+    }
+    ion-item {
+      ion-label.important::before {
+        content: "*";
+        color: #eb445a;
+        margin-right: 5px;
+      }
+    }
+  }
+  .submit {
+    width: calc(100% - 20px);
+    height: 55px;
+    margin: 10px 10px 0;
+    --border-radius: 5px;
+  }
+}

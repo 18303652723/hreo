@@ -1,0 +1,76 @@
+ion-content {
+  position: relative;
+  --background: #fefefe;
+  .background_round {
+    width: 140vw;
+    height: 200px;
+    border-radius: 0 0 50% 50%;
+    background: linear-gradient(to right, #666, #000);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -100px;
+  }
+  .navigate_bar {
+    margin: 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba($color: #000000, $alpha: .2);
+    ion-col {
+      background-color: #fff;
+      padding: 15px 0;
+      &:active {
+        background-color: #e8e8e8;
+      }
+      i.iconfont {
+        display: block;
+        width: 50px;
+        line-height: 50px;
+        text-align: center;        
+        font-size: 28px;
+        margin: 0 auto;
+        background-color: #f3f3f3;
+        border-radius: 50%;
+      }
+      ion-text {
+        display: block;
+        text-align: center;
+        padding-top: 10px;
+      }
+    }
+  }
+
+  ion-list {
+    ion-item {
+      --detail-icon-font-size: 0;
+      ion-avatar {
+        width: 50px;
+        height: 50px;
+      }
+      ion-label {
+        ion-text.new::after {
+          content: "";
+          width: 6px;
+          height: 6px;
+          border-radius: 50%; 
+          background-color: #f36630;
+          position: absolute;
+          right: 10px;
+          top: 10px;
+        }
+        .nickname {
+          padding-bottom: 5px;
+          display: block;
+          ion-text {
+            float: right;
+            font-size: 13px;
+          }
+        }
+        .latest_msg {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}

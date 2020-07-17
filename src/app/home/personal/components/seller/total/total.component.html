@@ -1,0 +1,191 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/personal"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <span *ngIf="type == 'sellerGoods'">商品管理</span>
+      <span *ngIf="type == 'sellerOrders' || 'buyerOrders'">交易订单</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item-group *ngIf="type === 'buyerOrders'">
+    <ion-item
+      lines="full"
+      mode="ios"
+      button
+      [routerLink]="['/personalComponents/buyer']"
+      [queryParams]="{ title: '0' }">
+      <ion-label>待支付订单
+        <ion-text color="danger">({{ buyerOrders_num[0] }})</ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item
+      lines="full"
+      mode="ios"
+      button
+      [routerLink]="['/personalComponents/buyer']"
+      [queryParams]="{ title: '1' }">
+      <ion-label>待发货订单
+        <ion-text color="danger">({{ buyerOrders_num[1] }})</ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item
+      lines="full"
+      mode="ios"
+      button
+      [routerLink]="['/personalComponents/buyer']"
+      [queryParams]="{ title: '2' }">
+      <ion-label>待确认收货订单
+        <ion-text color="danger">({{ buyerOrders_num[2] }})</ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item
+      lines="full"
+      mode="ios"
+      button
+      [routerLink]="['/personalComponents/buyer']"
+      [queryParams]="{ title: '3' }">
+      <ion-label>交易成功订单
+        <ion-text color="danger">({{ buyerOrders_num[3] }})</ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item
+      lines="full"
+      mode="ios"
+      button
+      [routerLink]="['/personalComponents/buyer']"
+      [queryParams]="{ title: '4' }">
+      <ion-label>交易失败订单
+        <ion-text color="danger">({{ buyerOrders_num[4] }})</ion-text>
+      </ion-label>
+    </ion-item>
+    <!-- <ion-item
+      lines="full"
+      mode="ios"
+      button
+      [routerLink]="['/personalComponents/buyer']"
+      [queryParams]="{ title: '5' }">
+      <ion-label>预发货订单
+        <ion-text color="danger">({{ buyerOrders_num[5] }})</ion-text>
+      </ion-label>
+    </ion-item> -->
+    <!-- <ion-button expand="block" mode="ios">我有商品要买</ion-button> -->
+  </ion-item-group>
+  <ion-item-group *ngIf="type === 'sellerGoods'">
+    <ion-item-divider class="ion-no-padding">
+      <ion-label>当前您商品总数为：<ion-text color="danger">{{ sellerGoodsAll }}</ion-text>个；其中：</ion-label>
+    </ion-item-divider>
+  
+    <ion-item
+      lines="full"
+      mode="ios"
+      button
+      [routerLink]="['/personalComponents/sellerListOfGoods']"
+      [queryParams]="{ title: '0' }">
+      <ion-label>待提交
+        <ion-text color="danger">({{ sellerGoods_num[0] }})</ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item
+      lines="full"
+      mode="ios"
+      button
+      [routerLink]="['/personalComponents/sellerListOfGoods']"
+      [queryParams]="{ title: '1' }">
+      <ion-label>审核中
+        <ion-text color="danger">({{ sellerGoods_num[1] }})</ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item
+      lines="full"
+      mode="ios"
+      button
+      [routerLink]="['/personalComponents/sellerListOfGoods']"
+      [queryParams]="{ title: '2' }">
+      <ion-label>已上架
+        <ion-text color="danger">({{ sellerGoods_num[2] }})</ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item
+      lines="full"
+      mode="ios"
+      button
+      [routerLink]="['/personalComponents/sellerListOfGoods']"
+      [queryParams]="{ title: '3' }">
+      <ion-label>已下架
+        <ion-text color="danger">({{ sellerGoods_num[3] }})</ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item
+      lines="full"
+      mode="ios"
+      button
+      [routerLink]="['/personalComponents/sellerListOfGoods']"
+      [queryParams]="{ title: '4' }">
+      <ion-label>已售完
+        <ion-text color="danger">({{ sellerGoods_num[4] }})</ion-text>
+      </ion-label>
+    </ion-item>
+    <!-- <ion-button expand="block" mode="ios">我有商品要买</ion-button> -->
+  </ion-item-group>
+  <ion-item-group *ngIf="type === 'sellerOrders'">
+    <ion-item-divider class="ion-no-padding">
+      <ion-label>最近订单：<ion-text color="danger">{{ sellerOrdersAll }}</ion-text>个；其中：</ion-label>
+    </ion-item-divider>
+  
+    <ion-item
+      lines="full"
+      mode="ios"
+      button
+      [routerLink]="['/personalComponents/sellerListOfOrder']"
+      [queryParams]="{ title: '2' }">
+      <ion-label>已发货、待确认
+        <ion-text color="danger">({{ sellerOrders_num[2] }})</ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item
+      lines="full"
+      mode="ios"
+      button
+      [routerLink]="['/personalComponents/sellerListOfOrder']"
+      [queryParams]="{ title: '1' }">
+      <ion-label>待发货
+        <ion-text color="danger">({{ sellerOrders_num[1] }})</ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item
+      lines="full"
+      mode="ios"
+      button
+      [routerLink]="['/personalComponents/sellerListOfOrder']"
+      [queryParams]="{ title: '3' }">
+      <ion-label>交易成功
+        <ion-text color="danger">({{ sellerOrders_num[3] }})</ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item
+      lines="full"
+      mode="ios"
+      button
+      [routerLink]="['/personalComponents/sellerListOfOrder']"
+      [queryParams]="{ title: '4' }">
+      <ion-label>交易失败
+        <ion-text color="danger">({{ sellerOrders_num[4] }})</ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item
+      lines="full"
+      mode="ios"
+      button
+      [routerLink]="['/personalComponents/sellerListOfOrder']"
+      [queryParams]="{ title: '0' }">
+      <ion-label>交易中订单
+        <ion-text color="danger">({{ sellerOrders_num[0] }})</ion-text>
+      </ion-label>
+    </ion-item>
+    <!-- <ion-button expand="block">我有商品要买</ion-button> -->
+  </ion-item-group>
+</ion-content>
